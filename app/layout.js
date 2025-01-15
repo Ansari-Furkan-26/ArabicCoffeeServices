@@ -14,14 +14,14 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title:{
-    default:"Rukn Al Dyafa | Hospitality Services",
+    default:"Rukn Al Dyafa | Arabic Coffee Service | ركن الضيافة ",
     template: "%s - Rukn Al Dyafa"
   },
-  description: "Discover premium Arabic coffee service and hospitality services in the UAE. We specialize in luxurious beverage catering for weddings, corporate events, and private gatherings, offering a unique experience with authentic Arabic coffee service.",
+  description: "ركن الضيافة - Discover premium Arabic coffee service in the UAE. We specialize in luxurious beverage catering for weddings, corporate events, and private gatherings, offering a unique experience with authentic خدمة القهوة العربية.",
   openGraph: {
     title: "Rukn Al Dyafa | Hospitality Services",
     description: "Experience the finest Arabic coffee and exceptional hospitality services for your special events in the UAE. Tailored beverage catering for weddings, corporate events, and private gatherings.",
-    url: "https://www.ruknaldyafa.store/",
+    url: "https://www.ruknaldyafa.ae/",
     type: "website",
     images: [
       {
@@ -36,9 +36,10 @@ export const metadata = {
     card: "summary_large_image",
     title: "Rukn Al Dyafa | Premium Arabic Coffee & Hospitality Services",
     description: "Luxury Arabic coffee and hospitality services in the UAE for weddings, corporate events, and private gatherings.",
-    image: "https://www.ruknaldyafa.store/your-image.jpg",  // Add an appropriate image URL
+    image: "/opengraph-image.png",  // Add an appropriate image URL
   },
 };
+
 
 export default function RootLayout({ children }) {
 

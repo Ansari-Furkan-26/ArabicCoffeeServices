@@ -33,8 +33,7 @@ function Footer({ language = "english" }) {
       {/* Branding Section */}
       <div className="text-center lg:text-left">
         <h1 className="text-2xl font-bold tracking-wider uppercase">
-          <span className="text-[#FFD700]">ركن</span>{" "}
-          <span className="text-white"> الضيافة</span>
+          <img src="NewLogo.png" className="flex items-center justify-center h-24" alt="" />
         </h1>
       </div>
 

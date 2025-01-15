@@ -33,7 +33,7 @@ export default function HomePage({ language, toggleLanguage }) {
       paragraph:
         "At Rukn Al Dyafa, we redefine hospitality in the UAE with our luxurious Arabic coffee service and premium catering, creating unforgettable moments for every occasion.",
       bookNow: "Book Now",
-      SideQuote: "Arabic coffee, every season, every story.",
+      SideQuote: "Arabic coffee Service, every season, every story.",
       SideDesc: "Tailored experiences and exclusive setups for exceptional coffee service."
     },
     arabic: {
@@ -41,7 +41,7 @@ export default function HomePage({ language, toggleLanguage }) {
       paragraph:
         "في ركن الضيافة، نقدم خدمات الضيافة الفاخرة مع القهوة العربية الفريدة، لنخلق لحظات لا تُنسى لكل مناسبة في الإمارات.",
       bookNow: "احجز الآن",
-      SideQuote: "القهوة العربية، لكل موسم وكل حكاية.",
+      SideQuote: "خدمة القهوة العربية، في كل موسم، وفي كل حكاية.",
       SideDesc: "تجارب مصممة بعناية وترتيبات حصرية لخدمة قهوة استثنائية."
     },
   };

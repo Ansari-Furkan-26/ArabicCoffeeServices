@@ -43,20 +43,20 @@ const Navbar = ({
   const navigation = {
     english: [
       { name: "About", href: "/about-rukn-al-dyafa" },
-      { name: "Luxury Service", href: "/luxury-hospitality-services" },
-      { name: "Event", href: "/event-planning-services" },
+      { name: "Luxury Service", href: "/arabic-coffee-services" },
+      { name: "Event", href: "/best-arabic-coffee-service" },
       { name: "Captured Moment", href: "/hospitality-services-memories" },
     ],
     arabic: [
       { name: "حول", href: "/about-rukn-al-dyafa" },
-      { name: "الخدمات الفاخرة", href: "/luxury-hospitality-services" },
-      { name: "الحدث", href: "/event-planning-services" },
+      { name: "الخدمات الفاخرة", href: "/arabic-coffee-services" },
+      { name: "الحدث", href: "/best-arabic-coffee-service" },
       { name: "اللحظات الملتقطة", href: "/hospitality-services-memories" },
     ],
   };
 
   const t = translations[language] || translations.english;
-  const logoPath = language === "english" ? "/logo/english_logo.png" : "/logo/arabic_logo.png";
+  const logoPath = language === "english" ? "/NewLogo.png" : "/NewLogo.png";
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -74,8 +74,8 @@ const Navbar = ({
               src={logoPath}
               alt={language === "english" ? "English Logo" : "Arabic Logo"}
               width={120}
-              height={40}
-              className="object-contain h-16 w-auto"
+              height={50}
+              className="object-contain h-24 w-auto"
               priority
             />
           </Link>
@@ -141,20 +141,20 @@ const Navbar = ({
             {isContactDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg">
                 <a
-                  href="https://wa.me/+917045992776"
+                  href="https://wa.me/+971503665518"
                   className="block px-4 py-2 text-white text-sm hover:bg-gray-700 rounded-md"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  +917045992776
+                  +971 50 366 5518
                 </a>
                 <a
-                  href="https://wa.me/+917045992776"
+                  href="https://wa.me/+971555428833"
                   className="block px-4 py-2 text-white text-sm hover:bg-gray-700 rounded-md"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  +917045992776
+                  +971 55 542 8833
                 </a>
               </div>
             )}
@@ -191,12 +191,19 @@ const Navbar = ({
               ))}
             </div>
             <div className="py-6">
-              <a
-                href="https://wa.me/+917045992776"
+            <a
+                href="https://wa.me/+971503665518"
                 className="block rounded-lg px-3 py-2.5 text-base font-semibold text-gray-100 hover:bg-gray-700"
                 target="_blank"
                 rel="noopener noreferrer">
-                +917045992776
+                +971 50 366 5518
+              </a>
+              <a
+                href="https://wa.me/+971555428833"
+                className="block rounded-lg px-3 py-2.5 text-base font-semibold text-gray-100 hover:bg-gray-700"
+                target="_blank"
+                rel="noopener noreferrer">
+                +971 55 542 8833
               </a>
             </div>
           </div>

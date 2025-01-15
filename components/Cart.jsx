@@ -210,7 +210,7 @@ const translations = {
     const encodedMessage = encodeURIComponent(message);
 
     // WhatsApp API link
-    const whatsappLink = `https://wa.me/+917045992776?text=${encodedMessage}`;
+    const whatsappLink = `https://wa.me/+971503665518?text=${encodedMessage}`;
 
     // Redirect to WhatsApp
     window.open(whatsappLink, "_blank");

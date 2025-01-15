@@ -7,7 +7,7 @@ const cardsContent = {
   english: [
     {
       img: "/6.jpg",
-      title: "Beverage Service Experience for Guests",
+      title: "Arabic Coffee Service Experience",
       message:
         "Rukn Al Dyafa serves the finest traditional and international beverages with exceptional service, enhancing the visitor experience at every moment.",
     },
@@ -50,16 +50,16 @@ const aboutContent = {
   english: {
     heading: "Delivering Timeless Elegance and Mixology Excellence to Your Events.",
     description:
-      "Crafting unforgettable catering experiences in the UAE, where exceptional beverage services and refined hospitality bring elegance and balance to every occasion.",
+      "Crafting unforgettable catering experiences in the UAE, where exceptional Arabic coffee services, refined hospitality, and premium beverage offerings bring elegance and balance to every occasion.",
     button: "Book Your Event",
     cateringHeading: "Luxury Coffee Service Across All Emirates",
     cateringDescription:
-      "We specialize in providing luxury coffee services across all Emirates, ensuring an exceptional experience for your guests. Our expert baristas craft premium beverages with precision and flair, adding a touch of sophistication to any event. Whether it’s a corporate gathering, wedding, or private celebration, our coffee service is tailored to meet your unique needs. From elegant presentation to seamless execution, we focus on every detail to leave a lasting impression. Let us elevate your event with unparalleled quality and professionalism.",
+      "We specialize in providing luxury Arabic coffee services across all Emirates, ensuring an exceptional experience for your guests. Our expert baristas craft premium beverages with precision and flair, adding a touch of sophistication and elegance to any event. Whether it’s a corporate gathering, wedding, or private celebration, our Arabic coffee service is tailored to meet your unique needs. From elegant presentation to seamless execution, we focus on every detail to leave a lasting impression. Let us elevate your event with unparalleled quality and professionalism.",
   },
   arabic: {
     heading: "نقدم أناقة خالدة وتميز في فن المزج لمناسباتكم.",
     description:
-      "نصنع تجارب تجمع بين الأناقة الكلاسيكية والهدوء الطبيعي، مما يضفي الرقي والتوازن على كل مناسبة.",
+      "ابتكار تجارب تقديم طعام لا تُنسى في الإمارات العربية المتحدة، حيث توفر خدمات القهوة العربية الاستثنائية والضيافة الراقية وعروض المشروبات الفاخرة الأناقة والتوازن لكل مناسبة",
     button: "احجز مناسبتك",
     cateringHeading: "خدمة قهوة فاخرة في جميع الإمارات",
     cateringDescription:
@@ -79,16 +79,14 @@ function About({ language }) {
           className="text-3xl font-bold mb-4 max-w-sm"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-        >
+          transition={{ duration: 0.8 }}>
           {content.heading}
         </motion.h2>
         <motion.div
           className="block max-w-2xl"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-        >
+          transition={{ duration: 0.8 }}>
           <p className="text-gray-600 mb-6">{content.description}</p>
           <Link href="/luxury-hospitality-services">
             <button className="bg-black hover:bg-gray-800 text-white py-2 px-4 rounded-full mb-6 transition-all">
@@ -107,8 +105,7 @@ function About({ language }) {
               className="p-4 relative h-96 text-white group overflow-hidden rounded-2xl"
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-            >
+              transition={{ duration: 0.8, delay: index * 0.2 }}>
               {/* Background Image */}
               <img
                 src={card.img}
@@ -133,8 +130,7 @@ function About({ language }) {
           className="w-full lg:w-1/2"
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
+          transition={{ duration: 0.8 }}>
           <img
             src={"/About.jpg"}
             alt="Catering Service"
@@ -145,8 +141,7 @@ function About({ language }) {
           className="w-full lg:w-1/2 mt-8 lg:mt-0 lg:ml-12"
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
+          transition={{ duration: 0.8 }}>
           <h2 className="text-3xl font-bold mb-4">{content.cateringHeading}</h2>
           <p className="text-gray-700">{content.cateringDescription}</p>
         </motion.div>

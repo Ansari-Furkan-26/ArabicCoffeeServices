@@ -14,6 +14,7 @@ import Home from "@/components/Home";
 import Footer from "@/components/Footer";
 import ReviewSection from "@/components/ReviewSection";
 import dynamic from "next/dynamic";
+import Head from 'next/head';
 
 // Load fonts
 const geistSans = Geist({
@@ -89,6 +90,10 @@ export default function HomePage() {
 
   return (
     <div className={`${geistSans.variable} ${geistMono.variable}`}>
+     <Head>
+        {/* Add your meta viewport tag here */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
       {/* Dynamic SEO Metadata */}
       <NextSeo
         title={currentSeoData.title}

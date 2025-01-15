@@ -49,7 +49,7 @@ const ConatctForm = ({ language }) => {
     Address: ${formData.address} 
     Message: ${formData.message}`;
 
-    const whatsappUrl = `https://wa.me/+917045992776?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappUrl = `https://wa.me/+971503665518?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(whatsappUrl, '_blank');
   };
 

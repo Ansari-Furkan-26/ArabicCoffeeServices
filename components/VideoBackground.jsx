@@ -5,7 +5,7 @@ const VideoBackground = ({ language }) => {
   // Text translations for English and Arabic
   const translations = {
     english: {
-      heading: "Experience elegance and flavors that speak for themselves",
+      heading: "Discover what makes our coffee services truly exceptiona",
       paragraph: "Ready to indulge? Explore our menu.",
       button: "Explore",
     },
