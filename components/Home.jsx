@@ -97,7 +97,7 @@ export default function HomePage({ language, toggleLanguage }) {
             </motion.p>
 
             {/* Animated Button */}
-            <a href="luxury-hospitality-services">
+            <a href="arabic-coffee-services">
               <motion.button
                 className="mt-6 bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-6 rounded shadow-lg transition-all"
                 whileHover={{ scale: 1.1 }}

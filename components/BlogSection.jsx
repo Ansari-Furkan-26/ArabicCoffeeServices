@@ -80,7 +80,7 @@ const About = ({ language }) => {
         {/* Blog grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogs.map((blog, index) => (
-            <a href="event-planning-services" key={index}>
+            <a href="/best-arabic-coffee-service" key={index}>
               <div className="relative overflow-hidden rounded-lg shadow-lg group">
                 <img
                   src={blog.image}

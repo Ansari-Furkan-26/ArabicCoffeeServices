@@ -58,7 +58,7 @@ const About = ({ language = "english" }) => {
       <div className="relative overflow-hidden px-3">
         <div className="flex space-x-6 py-5 overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory">
           {Packages.map((product, index) => (
-            <a href="luxury-hospitality-services" key={index}>
+            <a href="arabic-coffee-services" key={index}>
               <motion.div
                 className="min-w-[300px] h-full rounded-xl bg-white shadow-lg overflow-hidden snap-start relative group"
                 initial={{ opacity: 0, y: 50 }}

@@ -43,7 +43,7 @@ function Footer({ language = "english" }) {
           <a href="/" className="text-gray-400 hover:text-gray-100">
             {t.home}
           </a>
-          <a href="/luxury-hospitality-services" className="text-gray-400 hover:text-gray-100">
+          <a href="/arabic-coffee-services" className="text-gray-400 hover:text-gray-100">
             {t.services}
           </a>
           <a href="/hospitality-services-memories" className="text-gray-400 hover:text-gray-100">
@@ -52,7 +52,7 @@ function Footer({ language = "english" }) {
           <a href="/about-rukn-al-dyafa" className="text-gray-400 hover:text-gray-100">
             {t.aboutUs}
           </a>
-          <a href="/event-planning-services" className="text-gray-400 hover:text-gray-100">
+          <a href="/best-arabic-coffee-service" className="text-gray-400 hover:text-gray-100">
             {t.events}
           </a>
           <a href="/contact-us" rel="noreferrer" className="text-gray-400 hover:text-gray-100">
