@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { NextSeo } from 'next-seo';
+import FloatingButton from "@/components/Floating";
 
 // Manually import images from the public/images folder
 const sampleImages = Array.from({ length: 51 }, (_, index) => ({
@@ -119,6 +120,7 @@ export default function GalleryPage() {
       </div>
 
       <Footer language={language} />
+      <FloatingButton />
     </div>
   );
 }

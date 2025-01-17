@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer"; 
 import ConatctForm from "@/components/ContactForm";
+import FloatingButton from "@/components/Floating";
 
 const AboutSection = () => {
   const translations = {
@@ -54,6 +55,7 @@ const AboutSection = () => {
 
       <ConatctForm language={language} />
       <Footer language={language} />
+      <FloatingButton />
     </div>
   );
 };

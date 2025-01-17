@@ -2,6 +2,7 @@
 import React, { useState } from "react"; // Ensure useState is imported
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FloatingButton from "@/components/Floating";
 // import { NextSeo } from 'next-seo';
 
 const headerImage = 'https://i.pinimg.com/736x/c0/88/59/c0885989e1a17079e0e8ec5d5c5138df.jpg';
@@ -150,6 +151,7 @@ function Eventpg() {
         ))}
       </div>
       <Footer language={language} />
+      <FloatingButton />
     </div>
   );
 }

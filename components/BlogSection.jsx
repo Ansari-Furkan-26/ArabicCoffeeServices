@@ -70,7 +70,7 @@ const About = ({ language }) => {
         <div className="text-center mb-12" dir={language === 'arabic' ? 'rtl' : 'ltr'}>
           <h2 className="text-4xl font-bold mb-4">{t.title}</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">{t.description}</p>
-          <a href="event-planning-services">
+          <a href="best-arabic-coffee-service">
             <button className="mt-6 px-6 py-2 bg-black text-white rounded-md hover:bg-gray-800">
               {t.buttonText}
             </button>

@@ -17,7 +17,7 @@ export const metadata = {
     default:"Rukn Al Dyafa | Arabic Coffee Service | ركن الضيافة ",
     template: "%s - Rukn Al Dyafa"
   },
-  description: "ركن الضيافة - Discover premium Arabic coffee service in the UAE. We specialize in luxurious beverage catering for weddings, corporate events, and private gatherings, offering a unique experience with authentic خدمة القهوة العربية.",
+  description: "ركن الضيافة - Discover premium Arabic coffee service in the UAE. We specialize in luxurious beverage catering for weddings, corporate events, and private gatherings. خدمة القهوة العربية.",
   openGraph: {
     title: "Rukn Al Dyafa | Hospitality Services",
     description: "Experience the finest Arabic coffee and exceptional hospitality services for your special events in the UAE. Tailored beverage catering for weddings, corporate events, and private gatherings.",
@@ -46,6 +46,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        {/* Animate.css CDN */}
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
         {/* Google Analytics script */}
         <script
             async

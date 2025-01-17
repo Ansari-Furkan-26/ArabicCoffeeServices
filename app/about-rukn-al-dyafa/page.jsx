@@ -5,6 +5,7 @@ import About from '@/components/About';
 // import Gallery from '@/components/HeroGallery';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer"; 
+import FloatingButton from "@/components/Floating";
 
 const AboutSection = () => {
   const translations = {
@@ -56,6 +57,7 @@ const AboutSection = () => {
       <About language={language} />
       {/* <Gallery language={language} /> */}
       <Footer language={language} />
+      <FloatingButton />
     </div>
   );
 };

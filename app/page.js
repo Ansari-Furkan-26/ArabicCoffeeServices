@@ -14,6 +14,7 @@ import Home from "@/components/Home";
 import Footer from "@/components/Footer";
 import ReviewSection from "@/components/ReviewSection";
 import dynamic from "next/dynamic";
+import Floating from "@/components/Floating";
 import Head from 'next/head';
 
 // Load fonts
@@ -126,6 +127,7 @@ export default function HomePage() {
       <ReviewSection language={language}/>
       <Form language={language} />
       <Footer language={language} />
+      <Floating />
     </div>
   );
 }

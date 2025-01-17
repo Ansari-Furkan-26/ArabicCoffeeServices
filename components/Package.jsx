@@ -256,7 +256,7 @@ const PackShowcase2 = ({ onSelectPackage, language }) => {
       </div>
 
       {isPopupVisible && (
-        <div className="fixed inset-x-0 bottom-0 bg-opacity-80 flex justify-center items-center z-50">
+        <div className="fixed inset-x-0 bottom-10 bg-opacity-80 flex justify-center items-center z-50">
           <div className="bg-gray-800 text-white rounded-t-lg p-4 w-full max-w-lg flex items-center justify-between shadow-lg">
             <h2 className="text-xl font-semibold">🎉 Package Added</h2>
             <a

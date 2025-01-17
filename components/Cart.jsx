@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
+import OrderForm from "./OrderForm";
 
 const hotBeverages = [
   "Arabic coffee | قهوة عربية",
@@ -230,7 +231,7 @@ const translations = {
       {/* Drink Selection*/}
       <div className="flex justify-between items-center my-6">
       <div className="w-1/2 mr-4">
-          <label htmlFor="hotDrink" className="block text-sm font-medium mb-2">
+          <label htmlFor="hotDrink" className="block text-sm font-semibold mb-2">
             {t.HotDrink}
           </label>
           <select
@@ -325,8 +326,8 @@ const translations = {
 
       {/* Display Selected Food Items, if Any */}
       {selectedFoodItems.length > 0 && (
-        <div className="mb-4">
-          <h3 className="font-semibold mb-2">{t.selectedfood}:</h3>
+        <div className="mb-">
+          <h3 className="font-semibold ">{t.selectedfood}:</h3>
           {selectedFoodItems.map((food, index) => (
             <div key={index} className="flex justify-between items-center border-b pb-2">
               <div>{food.name}</div>
@@ -345,6 +346,7 @@ const translations = {
       )}
     </div>
 
+    <OrderForm language={language}/>
 
       {/* Delivery Charges */}
       <div className="flex justify-between mt-4 text-lg">
@@ -361,27 +363,6 @@ const translations = {
           <span>{calculateTotal()} AED</span>
       </div>
 
-      {/* Client Entries Section */}
-      <div className="border rounded-lg p-4 my-6 bg-gray-50">
-          <h2 className="text-xl font-semibold mb-4">{t.clientEntries}</h2>
-          <div className="space-y-2">
-            {[
-              { label: t.name, value: formData.name },
-              { label: t.email, value: formData.email }, 
-              { label: t.city, value: formData.city },
-              { label: t.phone, value: formData.countryCode ? `${formData.countryCode} ${formData.phone}` : formData.phone },
-              { label: t.guests, value: formData.guests },
-              { label: t.eventDate, value: formData.eventDate },
-            ].map((item, index) => (
-              <div key={index} className="flex justify-between border-b pb-2">
-                <span className="font-medium">{item.label}:</span>
-                <span className="truncate max-w-xs md:max-w-full">
-                  {item.value || "N/A"}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
 
       {/* <div className="text-left my-5 rounded-lg">
         <p><strong>Special Offer: </strong><br /> Order Package 3 or higher and get a complimentary Beverage or Perfume with your order.</p>

@@ -168,7 +168,7 @@ const Navbar = ({
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm -mr-24">
           <div className="flex items-center justify-between">
             <Link href="/" className="-mx-6 flex items-center">
-              <Image src={logoPath} alt="Rukn Al Dyafa Logo" width={100} height={50} className="h-10 w-auto"/>
+              <Image src={logoPath} alt="Rukn Al Dyafa Logo" width={100} height={50} className="ml-5 h-70 w-auto"/>
             </Link>
             <button
               type="button"
