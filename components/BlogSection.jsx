@@ -64,7 +64,7 @@ const About = ({ language }) => {
 
 
     return (
-      <div className="bg-gray-100 pb-16 px-4" id="Gallery">
+      <div className="bg-gray-100 py-8 px-4" id="Gallery">
       <div className="max-w-6xl mx-auto">
         {/* Title and description */}
         <div className="text-center mb-12" dir={language === 'arabic' ? 'rtl' : 'ltr'}>

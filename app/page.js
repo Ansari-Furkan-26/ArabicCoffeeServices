@@ -16,6 +16,7 @@ import ReviewSection from "@/components/ReviewSection";
 import dynamic from "next/dynamic";
 import Floating from "@/components/Floating";
 import Head from 'next/head';
+import CustomizationIntro from "@/components/CustomizationIntro";
 
 // Load fonts
 const geistSans = Geist({
@@ -122,6 +123,7 @@ export default function HomePage() {
       <About language={language} />
       <VideoBackground language={language} />
       <Plans language={language} />
+      <CustomizationIntro />
       <BlogSection language={language} />
       <FeaturedArtworks language={language} />
       <ReviewSection language={language}/>

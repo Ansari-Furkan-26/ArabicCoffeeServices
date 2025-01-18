@@ -5,6 +5,7 @@ import Cart from "@/components/Cart";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CustomizePackage from "@/components/CustomizePackage";
 
 
 const Checkout = () => {
@@ -40,7 +41,7 @@ const Checkout = () => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="https://i.pinimg.com/736x/74/fa/f7/74faf76a2616f4f776cf157c18a09d77.jpg"
+            src="https://i.pinimg.com/736x/0f/d7/0f/0fd70f3e12dbdf6519235fb2493297fa.jpg"
             alt={language === "english" ? "Hero" : "الصورة الرئيسية"}
             className="w-full h-full object-cover opacity-50"
           />
@@ -55,8 +56,8 @@ const Checkout = () => {
             transition={{ duration: 0.8 }}
           >
             {language === "english"
-              ? "Experience Our Services"
-              : "تجربة خدماتنا"}
+              ? "Experience Unmatched Tradition"
+              : "تجربة تقاليد لا مثيل لها"}
           </motion.h1>
 
           {/* Animated Paragraph */}
@@ -67,32 +68,14 @@ const Checkout = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {language === "english"
-              ? "At Rukn Al Dyafa, we deliver the elegance of traditional hospitality through luxurious catering."
-              : "في ركن الضيافة، نقدم أناقة الضيافة التقليدية من خلال تقديم خدمات الضيافة الفاخرة."}
+              ? "At Rukn Al Dyafa, we redefine hospitality with the rich flavors of Arabic coffee and luxurious catering that speak to both heart and culture. "
+              : "في ركن الضيافة، نعيد تعريف الضيافة بنكهات القهوة العربية الغنية وخدمات التموين الفاخرة التي تتحدث إلى القلب والثقافة."}
           </motion.p>
         </div>
       </div>
-
-      <PackShowcase2 onSelectPackage={handlePackageSelection} language={language} />
-      {/* Cart Section */}
-      <Cart
-        selectedPackage={selectedPackage}
-        selectedPackagePrice={selectedPackagePrice}
-        language={language}
-      />
-
-      {/* Floating Button */}
-      {selectedPackage && (
-        <button
-          onClick={scrollToCart}
-          className="fixed bottom-4 right-4 bg-gray-900 text-white text-xl p-4 rounded-full h-16 w-16 flex items-center justify-center 
-          shadow-lg hover:bg-gray-800 focus:outline-none 
-          focus:ring-2 focus:ring-slate-100 focus:ring-opacity-50"
-          aria-label="Go to Cart"
-        >
-          🛒
-        </button>
-      )}
+            
+        
+      <CustomizePackage language={language} />
       
     <Footer language={language} />
     </div>
