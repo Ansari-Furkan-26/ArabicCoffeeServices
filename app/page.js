@@ -123,7 +123,7 @@ export default function HomePage() {
       <About language={language} />
       <VideoBackground language={language} />
       <Plans language={language} />
-      <CustomizationIntro />
+      {/* <CustomizationIntro /> */}
       <BlogSection language={language} />
       <FeaturedArtworks language={language} />
       <ReviewSection language={language}/>
