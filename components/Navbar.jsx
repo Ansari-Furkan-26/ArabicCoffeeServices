@@ -56,7 +56,7 @@ const Navbar = ({
   };
 
   const t = translations[language] || translations.english;
-  const logoPath = language === "english" ? "/NewLogo.png" : "/NewLogo.png";
+  const logoPath = language === "english" ? "/transparent.svg" : "/transparent.svg";
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -74,8 +74,8 @@ const Navbar = ({
               src={logoPath}
               alt={language === "english" ? "English Logo" : "Arabic Logo"}
               width={120}
-              height={50}
-              className="object-contain h-24 w-auto"
+              height={40}
+              className="object-contain h-16 w-auto"
               priority
             />
           </Link>
@@ -168,7 +168,7 @@ const Navbar = ({
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm -mr-24">
           <div className="flex items-center justify-between">
             <Link href="/" className="-mx-6 flex items-center">
-              <Image src={logoPath} alt="Rukn Al Dyafa Logo" width={100} height={50} className="ml-5 h-70 w-auto"/>
+              <Image src={logoPath} alt="Rukn Al Dyafa Logo" width={100} height={50} className="ml-5 h-16 w-auto"/>
             </Link>
             <button
               type="button"

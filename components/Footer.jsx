@@ -31,9 +31,9 @@ function Footer({ language = "english" }) {
   return (
     <footer className="bg-gray-900 text-white w-full p-6 md:p-8">
       {/* Branding Section */}
-      <div className="text-center lg:text-left">
+      <div className="ml-20 text-center lg:text-left">
         <h1 className="text-2xl font-bold tracking-wider uppercase">
-          <img src="NewLogo.png" className="flex items-center justify-center h-24" alt="" />
+          {/* <img src="footerLogo.svg" className="flex items-center justify-center h-36 md:h-46" alt="" /> */}
         </h1>
       </div>
 

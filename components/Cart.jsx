@@ -120,7 +120,7 @@ const translations = {
     "Umm Al Quwain": 0,
   };
 
-  const Cart = ({ onSelectPackage,language, selectedPackage = "Basic Package", selectedPackagePrice = 1000 }) => {
+  const Cart = ({ onSelectPackage ,language, selectedPackage = "Basic Package", selectedPackagePrice = 1000 }) => {
     const [formData, setFormData] = useState({});
     const [isClient, setIsClient] = useState(false);
 

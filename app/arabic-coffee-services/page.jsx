@@ -76,6 +76,7 @@ const Checkout = () => {
       <PackShowcase2 onSelectPackage={handlePackageSelection} language={language} />
       {/* Cart Section */}
       <Cart
+      cartData
         selectedPackage={selectedPackage}
         selectedPackagePrice={selectedPackagePrice}
         language={language}

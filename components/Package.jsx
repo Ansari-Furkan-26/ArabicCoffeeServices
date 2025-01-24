@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import CustomePackage from "./CustomePackage";
 
 // Translation object
 const translations = {
@@ -196,6 +197,8 @@ const PackShowcase2 = ({ onSelectPackage, language }) => {
       <h1 className="my-5 text-2xl font-bold text-center">{t.header}</h1>
       <div className="overflow-hidden flex-col lg:flex-row items-center justify-center flex my-5 h-full">
         <div className="md:flex md:space-x-6 p-4 overflow-x-scroll h-full py-3">
+          
+      <CustomePackage language={language}/>
           {Packages2.map((product, index) => {
             const packageTranslation = t.packages[index];
             return (
