@@ -24,7 +24,7 @@ const CustomizationIntro = () => {
           Want a special coffee experience with personalized options like hot and cold drinks, food items, and dedicated servers? 
           You're just a click away from crafting your dream coffee package tailored to your taste.
         </p>
-        <a href="/your-special-coffee-pack">
+        <a href="/arabic-coffee-services">
         <button
           className="px-6 py-3 bg-black text-gray-50  rounded-lg shadow-lg transition-all"
         >

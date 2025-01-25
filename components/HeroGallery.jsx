@@ -72,7 +72,7 @@ const ImageGallery = ({ language = "english" }) => {
       {translations[language].heading}
     </h2>
     <div className="relative overflow-hidden px-3 ">
-    <div className="overflow-x-scroll relative p-4 mx-auto flex gap-4"
+    <div className="overflow-x-scroll relative p-4 mx-auto flex gap-4 scrollbar-hide"
       id="image-gallery-container"
       style={{ whiteSpace: "nowrap" }}
     >

@@ -193,12 +193,11 @@ const PackShowcase2 = ({ onSelectPackage, language }) => {
   const t = translations[language] || translations.english;
 
   return (
-    <div className="h-full md:pl-4 py-2 sm:pl-8 rounded-xl" id="Packages">
+    <div className="h-full md:pl-4 sm:pl-8 rounded-xl" id="Packages">
       <h1 className="my-5 text-2xl font-bold text-center">{t.header}</h1>
-      <div className="overflow-hidden flex-col lg:flex-row items-center justify-center flex my-5 h-full">
-        <div className="md:flex md:space-x-6 p-4 overflow-x-scroll h-full py-3">
+      <div className="overflow-hidden flex-col lg:flex-row items-center justify-center flex h-full">
+        <div className="md:flex md:space-x-6 p-4 overflow-x-scroll h-full py-3 scrollbar-hide">
           
-      <CustomePackage language={language}/>
           {Packages2.map((product, index) => {
             const packageTranslation = t.packages[index];
             return (
@@ -255,6 +254,9 @@ const PackShowcase2 = ({ onSelectPackage, language }) => {
               </motion.div>
             );
           })}
+
+          
+      {/* <CustomePackage language={language}/> */}
         </div>
       </div>
 

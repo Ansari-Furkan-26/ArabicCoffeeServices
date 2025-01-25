@@ -75,7 +75,7 @@ const Navbar = ({
               alt={language === "english" ? "English Logo" : "Arabic Logo"}
               width={120}
               height={40}
-              className="object-contain h-16 w-auto"
+              className="object-contain h-16 mt-2 w-auto"
               priority
             />
           </Link>

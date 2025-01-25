@@ -5,6 +5,7 @@ import Cart from "@/components/Cart";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CustomePackage from "@/components/CustomePackage"
 
 
 const Checkout = () => {
@@ -74,9 +75,12 @@ const Checkout = () => {
       </div>
 
       <PackShowcase2 onSelectPackage={handlePackageSelection} language={language} />
+      <div className="px-5">
+      <CustomePackage language={language}/>
+
+      </div>
       {/* Cart Section */}
       <Cart
-      cartData
         selectedPackage={selectedPackage}
         selectedPackagePrice={selectedPackagePrice}
         language={language}
