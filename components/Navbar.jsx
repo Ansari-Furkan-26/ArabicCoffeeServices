@@ -56,7 +56,7 @@ const Navbar = ({
   };
 
   const t = translations[language] || translations.english;
-  const logoPath = language === "english" ? "/transparent.svg" : "/transparent.svg";
+  const logoPath = language === "english" ? "/logo.svg" : "/logo.svg";
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
