@@ -13,6 +13,7 @@ const OrderForm = ({ language = "english" }) => {
     eventDate: '',
     deliveryCharge: 0,
   });
+  const [showError, setShowError] = useState(false); // State to manage error visibility
 
   const cityCharges = {
     'Abu Dhabi': 300,
@@ -55,15 +56,24 @@ const OrderForm = ({ language = "english" }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Check if all fields are filled
+    const isFormValid = Object.values(formData).every((field) => field !== '' || field === 0);
+
+    if (!isFormValid) {
+      setShowError(true); // Show error message if form is not valid
+      return;
+    }
+
+    setShowError(false); // Hide error message if form is valid
     console.log('Form submitted:', formData);
 
     // Save the final data to localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem('formData', JSON.stringify(formData));
     }
-
-    // Refresh the page
-    window.location.reload();
+   // Refresh the page
+  window.location.reload();
   };
 
   const renderInput = (label, name, type = 'text', additionalProps = {}) => (
@@ -91,6 +101,7 @@ const OrderForm = ({ language = "english" }) => {
       guests: "Number of Guests",
       eventDate: "Date of Event",
       submitButton: "Confirm Details",
+      errorMessage: "Please fill in all the required fields before submitting.",
     },
     arabic: {
       title: "الرجاء إدخال تفاصيلك",
@@ -101,6 +112,7 @@ const OrderForm = ({ language = "english" }) => {
       guests: "عدد الضيوف",
       eventDate: "تاريخ الحدث",
       submitButton: "تأكيد التفاصيل",
+      errorMessage: "يرجى ملء جميع الحقول المطلوبة قبل الإرسال.",
     },
   };
 
@@ -146,6 +158,12 @@ const OrderForm = ({ language = "english" }) => {
           </div>
           {renderInput(translations[language].guests, 'guests', 'number', { min: 10 })}
           {renderInput(translations[language].eventDate, 'eventDate', 'date')}
+          {/* Error message */}
+          {showError && (
+            <div className="text-red-500 text-sm mb-4">
+              {translations[language].errorMessage}
+            </div>
+          )}
           <div className="flex justify-center">
             <button
               type="submit"

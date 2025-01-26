@@ -3,51 +3,50 @@ import React, { useState, useEffect } from "react";
 
 const translations = {
   english: {
-    heading: "Your Customize Package",
-    select: "Make Your Own Package",
+    heading: "Make Your Own Package",
     HotType: "Select any Hot Drinks - 200 per drink",
     ColdType: "Select any Cold Drinks - 200 per drink",
     FoodItem: "Select any Traditional Food Items",
-    Servant: "Service providers- 350 each",
+    Servant: "Service providers- 350 each",
     male: "Male",
     female: "Female",
     total: "Total Price",
     addToCart: "Add to Cart",
     hotDrinks: [
-        "Arabic coffee",
-        "Turkish coffee",
-        "Black Tea with Zaffran",
-        "Green Tea",
-        "Lemon Grass Tea",
-        "Moroccan Tea",
-        "Pineapple Tea with Cinnamon",
-        "Sahlab",
-        "Apple Tea",
-        "Cappuccino",
-        "Habbat Al Hamra with Custard",
-        "Hot Chocolate",
-        "Rose with Custard",
-        "Pistachio Latte",
-        "Milk with Ginger",
-        "Milk with Zaffran",
-        "Milk with Zaatar",
+      "Arabic coffee",
+      "Turkish coffee",
+      "Black Tea with Zaffran",
+      "Green Tea",
+      "Lemon Grass Tea",
+      "Moroccan Tea",
+      "Pineapple Tea with Cinnamon",
+      "Sahlab",
+      "Apple Tea",
+      "Cappuccino",
+      "Habbat Al Hamra with Custard",
+      "Hot Chocolate",
+      "Rose with Custard",
+      "Pistachio Latte",
+      "Milk with Ginger",
+      "Milk with Zaffran",
+      "Milk with Zaatar",
     ],
     coldDrinks: [
-        "Faloodah",
-        "Mojito Passion Fruit",
-        "Mojito Blueberry",
-        "Pistachio latte",
-        "Lemon with Lavender",
-        "Pina Colada",
-        "Faloodah Mango",
-        "Coconut Water",
-        "Apricot drink",
-        "Iced Tea with Peach",
-        "Lemon with Mint",
-        "Hibiscus",
-        "Zaffran Drink",
-        "Orange Juice",
-        "Faloodah Strawberry",
+      "Faloodah",
+      "Mojito Passion Fruit",
+      "Mojito Blueberry",
+      "Pistachio latte",
+      "Lemon with Lavender",
+      "Pina Colada",
+      "Faloodah Mango",
+      "Coconut Water",
+      "Apricot drink",
+      "Iced Tea with Peach",
+      "Lemon with Mint",
+      "Hibiscus",
+      "Zaffran Drink",
+      "Orange Juice",
+      "Faloodah Strawberry",
     ],
     foodItems: [
       "Emarati Balaleet - 400 AED",
@@ -61,7 +60,7 @@ const translations = {
     ],
   },
   arabic: {
-    select: "اختر الحزمة",
+    heading: "اصنع الحزمة الخاصة بك",
     HotType: "اختر المشروبات الساخنة",
     ColdType: "اختر المشروبات الباردة",
     FoodItem: "اختر المواد الغذائية التقليدية",
@@ -105,7 +104,7 @@ const foodItemPrices = {
   "Khubs rigag - 1000 AED": 1000,
 };
 
-const CustomePackage = ({ language }) => {
+const CustomePackage = ({ language, onAddToCart }) => {
   const [selectedHotDrinks, setSelectedHotDrinks] = useState([]);
   const [selectedColdDrinks, setSelectedColdDrinks] = useState([]);
   const [selectedFoodItems, setSelectedFoodItems] = useState([]);
@@ -117,9 +116,8 @@ const CustomePackage = ({ language }) => {
   useEffect(() => {
     const hotDrinkPrice = selectedHotDrinks.length * 200;
     const coldDrinkPrice = selectedColdDrinks.length * 200;
-    // Calculate food price based on selected items and their prices
     const foodPrice = selectedFoodItems.reduce(
-      (total, item) => total + (foodItemPrices[item] || 0), // Default to 0 if item price is not found
+      (total, item) => total + (foodItemPrices[item] || 0),
       0
     );
     const servantPrice = (maleServants + femaleServants) * 350;
@@ -148,172 +146,171 @@ const CustomePackage = ({ language }) => {
       return;
     }
 
-  
     const foodPrice = selectedFoodItems.reduce(
-      (total, item) => total + (foodItemPrices[item] || 0), // Default to 0 if item price is not found
+      (total, item) => total + (foodItemPrices[item] || 0),
       0
     );
-  
-    // Calculate total price
+
     const hotDrinkPrice = selectedHotDrinks.length * 200;
     const coldDrinkPrice = selectedColdDrinks.length * 200;
     const servantPrice = (maleServants + femaleServants) * 350;
     const totalPrice = hotDrinkPrice + coldDrinkPrice + foodPrice + servantPrice;
-  
-    // Clear errors if validation passes
+
     setError("");
-  
+
     const cartData = {
       hotDrinks: selectedHotDrinks,
       coldDrinks: selectedColdDrinks,
       foodItems: selectedFoodItems,
-      foodPrice, // Include food price separately
+      foodPrice,
       maleServants,
       femaleServants,
       totalPrice,
     };
-  
+
     console.log("Cart Data:", cartData);
     localStorage.setItem("customPackage", JSON.stringify(cartData));
-    alert("Package added to cart!");
+    onAddToCart(cartData); // Pass custom package data to parent
+
+      // Refresh the page
+  window.location.reload();
   };
-  
+
   return (
     <div className="mb-4">
-    <h2 className="mb-4 text-2xl font-bold text-center">{t.heading}</h2>
-    <div className="p-4 bg-white rounded-xl max-w-md md:max-w-full mx-auto shadow-lg w-full flex flex-col lg:flex-row">
-      {/* Image Section */}
-      <div className="flex-1">
-        <img
-          src="https://i.pinimg.com/736x/f9/78/b5/f978b5c922e83377ad4fc7300a9cd0b0.jpg"
-          className="hidden md:block rounded-lg mb-4 w-full object-cover h-full"
-          alt=""
-        />
-        <img src="https://i.pinimg.com/736x/ef/37/44/ef374482f186de6cd9e65100aea27b16.jpg" 
-        className="md:hidden block rounded-lg mb-4 w-full object-cover h-full" alt="" />
-      </div>
+      <h2 className="mb-4 text-2xl font-bold text-center">{t.heading}</h2>
+      <div className="p-4 bg-white rounded-xl max-w-md md:max-w-full mx-auto shadow-lg w-full flex flex-col lg:flex-row">
+        {/* Image Section */}
+        <div className="flex-1">
+          <img
+            src="https://i.pinimg.com/736x/f9/78/b5/f978b5c922e83377ad4fc7300a9cd0b0.jpg"
+            className="hidden md:block rounded-lg mb-4 w-full object-cover h-[845px]"
+            alt=""
+          />
+          <img
+            src="https://i.pinimg.com/736x/ef/37/44/ef374482f186de6cd9e65100aea27b16.jpg"
+            className="md:hidden block rounded-lg mb-4 w-full object-cover h-full"
+            alt=""
+          />
+        </div>
 
-      {/* Content Section */}
-      <div className="flex-1 lg:pr-8 md:p-6">
-        <h2 className=" md:text-2xl text-xl font-bold">{t.select}</h2>
-  
-        <div className="flex md:block flex-col lg:flex-row md:gap-8">
-          {/* Hot Drinks */}
-          <div className="my-4 flex-1">
-            <h3 className="mb-2 font-semibold">{t.HotType}</h3>
-            <div className="flex flex-wrap gap-2">
-              {t.hotDrinks.map((drink, index) => (
+        {/* Content Section */}
+        <div className="flex-1 lg:pr-8 md:px-6">
+          <div className="flex md:block flex-col lg:flex-row md:gap-8">
+            {/* Hot Drinks */}
+            <div className="mb-4 flex-1">
+              <h3 className="mb-2 font-semibold">{t.HotType}</h3>
+              <div className="flex flex-wrap gap-2">
+                {t.hotDrinks.map((drink, index) => (
+                  <button
+                    key={index}
+                    className={`text-sm px-4 py-2 truncate border rounded-lg ${
+                      selectedHotDrinks.includes(drink)
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-200"
+                    }`}
+                    onClick={() =>
+                      handleSelection(drink, setSelectedHotDrinks, selectedHotDrinks)
+                    }
+                  >
+                    {drink}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Cold Drinks */}
+            <div className="my-4 flex-1">
+              <h3 className="mb-2 font-semibold">{t.ColdType}</h3>
+              <div className="flex flex-wrap gap-2">
+                {t.coldDrinks.map((drink, index) => (
+                  <button
+                    key={index}
+                    className={`text-sm px-4 py-2 truncate border rounded-lg ${
+                      selectedColdDrinks.includes(drink)
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-200"
+                    }`}
+                    onClick={() =>
+                      handleSelection(drink, setSelectedColdDrinks, selectedColdDrinks)
+                    }
+                  >
+                    {drink}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Food Items */}
+          <div className="my-4">
+            <h3 className="mb-2 font-semibold">{t.FoodItem}</h3>
+            <div className="grid grid-cols-2 gap-2">
+              {t.foodItems.map((foodItem, index) => (
                 <button
                   key={index}
-                  className={`text-sm px-4 py-2 truncate border rounded-lg ${
-                    selectedHotDrinks.includes(drink)
+                  className={`text-sm px-4 py-2 border rounded-lg ${
+                    selectedFoodItems.includes(foodItem)
                       ? "bg-blue-500 text-white"
                       : "bg-gray-200"
                   }`}
                   onClick={() =>
-                    handleSelection(drink, setSelectedHotDrinks, selectedHotDrinks)
+                    handleSelection(foodItem, setSelectedFoodItems, selectedFoodItems)
                   }
                 >
-                  {drink}
+                  {foodItem}
                 </button>
               ))}
             </div>
           </div>
-  
-          {/* Cold Drinks */}
-          <div className="my-4 flex-1">
-            <h3 className="mb-2 font-semibold">{t.ColdType}</h3>
-            <div className="flex flex-wrap gap-2">
-              {t.coldDrinks.map((drink, index) => (
-                <button
-                  key={index}
-                  className={`text-sm px-4 py-2 truncate border rounded-lg ${
-                    selectedColdDrinks.includes(drink)
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-200"
-                  }`}
-                  onClick={() =>
-                    handleSelection(drink, setSelectedColdDrinks, selectedColdDrinks)
-                  }
-                >
-                  {drink}
-                </button>
-              ))}
+
+          {/* Servant Options */}
+          <div className="my-4">
+            <h3 className="text-lg font-semibold mb-2">{t.Servant}</h3>
+            <div className="flex md:flex-nowrap flex-wrap gap-4">
+              <div className="flex items-center">
+                <label>{t.male}</label>
+                <input
+                  type="number"
+                  value={maleServants}
+                  onChange={(e) => setMaleServants(Number(e.target.value))}
+                  className="ml-2 p-2 border rounded w-20"
+                  min="0"
+                />
+              </div>
+              <div className="flex items-center">
+                <label>{t.female}</label>
+                <input
+                  type="number"
+                  value={femaleServants}
+                  onChange={(e) => setFemaleServants(Number(e.target.value))}
+                  className="ml-2 p-2 border rounded w-20"
+                  min="0"
+                />
+              </div>
             </div>
           </div>
-        </div>
-  
-        {/* Food Items */}
-        <div className="my-4">
-          <h3 className="mb-2 font-semibold">{t.FoodItem}</h3>
-          <div className="grid grid-cols-2 gap-2">
-            {t.foodItems.map((foodItem, index) => (
-              <button
-                key={index}
-                className={`text-sm px-4 py-2 border rounded-lg ${
-                  selectedFoodItems.includes(foodItem)
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200"
-                }`}
-                onClick={() =>
-                  handleSelection(foodItem, setSelectedFoodItems, selectedFoodItems)
-                }
-              >
-                {foodItem}
-              </button>
-            ))}
+
+          {/* Total Price */}
+          <div className="my-4">
+            <h3 className="text-lg font-semibold">
+              {t.total}: AED {totalPrice}
+            </h3>
           </div>
+
+          {/* Error Message */}
+          {error && <p className="text-red-500">{error}</p>}
+
+          {/* Add to Cart */}
+          <button
+            className="bg-green-500 text-white px-6 py-2 rounded-lg w-full"
+            onClick={handleAddToCart}
+          >
+            {t.addToCart}
+          </button>
         </div>
-  
-        {/* Servant Options */}
-        <div className="my-4">
-          <h3 className="text-lg font-semibold mb-2">{t.Servant}</h3>
-          <div className="flex md:flex-nowrap flex-wrap gap-4">
-            <div className="flex items-center">
-              <label>{t.male}</label>
-              <input
-                type="number"
-                value={maleServants}
-                onChange={(e) => setMaleServants(Number(e.target.value))}
-                className="ml-2 p-2 border rounded w-20"
-                min="0"
-              />
-            </div>
-            <div className="flex items-center">
-              <label>{t.female}</label>
-              <input
-                type="number"
-                value={femaleServants}
-                onChange={(e) => setFemaleServants(Number(e.target.value))}
-                className="ml-2 p-2 border rounded w-20"
-                min="0"
-              />
-            </div>
-          </div>
-        </div>
-  
-        {/* Total Price */}
-        <div className="my-4">
-          <h3 className="text-lg font-semibold">
-            {t.total}: AED {totalPrice}
-          </h3>
-        </div>
-  
-        {/* Error Message */}
-        {error && <p className="text-red-500">{error}</p>}
-  
-        {/* Add to Cart */}
-        <button
-          className="bg-green-500 text-white px-6 py-2 rounded-lg w-full"
-          onClick={handleAddToCart}
-        >
-          {t.addToCart}
-        </button>
       </div>
     </div>
-  </div>
-  
-   
   );
 };
 

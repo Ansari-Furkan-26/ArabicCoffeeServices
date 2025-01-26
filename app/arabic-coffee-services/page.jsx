@@ -1,36 +1,69 @@
-'use client'
-import React, { useState } from "react";
+'use client';
+import React, { useState, useEffect } from "react";
 import PackShowcase2 from "@/components/Package";
 import Cart from "@/components/Cart";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CustomePackage from "@/components/CustomePackage"
-
+import CustomePackage from "@/components/CustomePackage";
 
 const Checkout = () => {
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [selectedPackagePrice, setSelectedPackagePrice] = useState(null);
+  const [customPackage, setCustomPackage] = useState(null);
+  const [language, setLanguage] = useState("english");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const savedPackage = localStorage.getItem('selectedPackage');
+    const savedPackagePrice = localStorage.getItem('selectedPackagePrice');
+    const savedCustomPackage = localStorage.getItem('customPackage');
+
+    if (savedPackage && savedPackagePrice) {
+      setSelectedPackage(savedPackage);
+      setSelectedPackagePrice(parseFloat(savedPackagePrice));
+    }
+
+    if (savedCustomPackage) {
+      setCustomPackage(JSON.parse(savedCustomPackage));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (selectedPackage && selectedPackagePrice) {
+      localStorage.setItem('selectedPackage', selectedPackage);
+      localStorage.setItem('selectedPackagePrice', selectedPackagePrice.toString());
+    }
+  }, [selectedPackage, selectedPackagePrice]);
+
+  useEffect(() => {
+    if (customPackage) {
+      localStorage.setItem('customPackage', JSON.stringify(customPackage));
+    } else {
+      localStorage.removeItem('customPackage');
+    }
+  }, [customPackage]);
 
   const handlePackageSelection = (title, price) => {
     setSelectedPackage(title);
     setSelectedPackagePrice(price);
   };
 
+  const handleAddCustomPackage = (customPackageData) => {
+    setCustomPackage(customPackageData);
+  };
+
   const scrollToCart = () => {
     document.getElementById("cart")?.scrollIntoView({ behavior: "smooth" });
   };
-  
-  const [language, setLanguage] = useState("english");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleLanguage = () => {
     setLanguage((prev) => (prev === "english" ? "arabic" : "english"));
   };
-  
+
   return (
     <div className="bg-gray-100">
-       <Navbar
+      <Navbar
         language={language}
         toggleLanguage={toggleLanguage}
         mobileMenuOpen={mobileMenuOpen}
@@ -74,20 +107,27 @@ const Checkout = () => {
         </div>
       </div>
 
+      {/* Package Showcase */}
       <PackShowcase2 onSelectPackage={handlePackageSelection} language={language} />
-      <div className="px-5">
-      <CustomePackage language={language}/>
 
+      {/* Custom Package Section */}
+      <div id="custom-package" className="px-5">
+        <CustomePackage
+          language={language}
+          onAddToCart={handleAddCustomPackage}
+        />
       </div>
+     
       {/* Cart Section */}
       <Cart
         selectedPackage={selectedPackage}
         selectedPackagePrice={selectedPackagePrice}
+        customPackage={customPackage}
         language={language}
       />
 
       {/* Floating Button */}
-      {selectedPackage && (
+      {(selectedPackage || customPackage) && (
         <button
           onClick={scrollToCart}
           className="fixed bottom-4 right-4 bg-gray-900 text-white text-xl p-4 rounded-full h-16 w-16 flex items-center justify-center 
@@ -98,10 +138,11 @@ const Checkout = () => {
           🛒
         </button>
       )}
-      
-    <Footer language={language} />
+
+      {/* Footer */}
+      <Footer language={language} />
     </div>
   );
 };
 
-export default Checkout; 
+export default Checkout;

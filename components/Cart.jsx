@@ -3,55 +3,6 @@ import { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import OrderForm from "./OrderForm";
 
-const hotBeverages = [
-  "Arabic coffee | قهوة عربية",
-  "Turkish coffee | قهوة تركية",
-  "Black Tea with Zaffran | شاي أسود بالزعفران",
-  "Green Tea | شاي أخضر",
-  "Lemon Grass Tea | شاي الليمون",
-  "Moroccan Tea | شاي مغربي",
-  "Pineapple Tea with Cinnamon | شاي الأناناس بالقرفة",
-  "Apple Tea | شاي التفاح",
-  "Habbat Al Hamra with Custard | حبّة الحمرا بالكاسترد",
-  "Cappuccino | كابتشينو",
-  "Hot Chocolate | شوكولاتة ساخنة",
-  "Rose with Custard | ورد بالكاسترد",
-  "Pistachio Latte | لاتيه بالفستق",
-  "Sahlab | سحلب",
-  "Milk with Ginger | حليب بالزنجبيل",
-  "Milk with Zaffran | حليب بالزعفران",
-  "Milk with Zaatar | حليب بالزعتر",
-];
-
-const coldBeverages = [
-  "Faloodah | فولوده",
-  "Hibiscus | كركديه",
-  "Mojito blueberry | موهيتو بالتوت الأزرق",
-  "Mojito passion fruit | موهيتو فاكهة العاطفة",
-  "Lemon with Lavender | ليمون مع اللافندر",
-  "Pistachio latte | لاتيه بالفستق",
-  "Faloodah Strawberry | فولوده بالفراولة",
-  "Faloodah Mango | فولوده بالمانجو",
-  "Apricot drink | مشروب المشمش",
-  "Pina Colada | بينا كولادا",
-  "Lemon with Mint | ليمون بالنعناع",
-  "Orange Juice | عصير البرتقال",
-  "Zaffran Drink | مشروب الزعفران",
-  "Iced Tea with Peach | شاي مثلج مع الخوخ",
-  "Coconut Water | ماء جوز الهند",
-];
-
-const foodItems = [
-  { name: "Luqaimat | لقيمات (per plate)", price: 500 },
-  { name: "Khubs shabab | خبز رقاق (per plate)", price: 500 },
-  { name: "Khubs rigag | خبز رقاق (per plate)", price: 1000 },
-  { name: "Khubs khameer | خبز خمير (per plate)", price: 800 },
-  { name: "Mahallah Zayed | محلي زايد (per plate)", price: 600 },
-  { name: "Emarati Balaleet | بلاليط او شعيرية (per kg)", price: 400 },
-  { name: "Khabees | خبيصة (per kg) ", price: 500 },
-  { name: "Dhango (Chick peas) | دنقو او نخي (per kg)", price: 400 },
-];
-
 const translations = {
   english: {
     header: "Cart Summary",
@@ -109,91 +60,164 @@ const translations = {
   },
 };
 
-  const DELIVERY_CHARGES = {
-    "Abu Dhabi": 300,
-    "Ajman": 0,
-    "Al Ain": 400,
-    "Dubai": 0,
-    "Fujairah": 300,
-    "Ras Al Khaimah": 300,
-    "Sharjah": 0,
-    "Umm Al Quwain": 0,
-  };
+const DELIVERY_CHARGES = {
+  "Abu Dhabi": 300,
+  "Ajman": 0,
+  "Al Ain": 400,
+  "Dubai": 0,
+  "Fujairah": 300,
+  "Ras Al Khaimah": 300,
+  "Sharjah": 0,
+  "Umm Al Quwain": 0,
+};
 
-  const Cart = ({ onSelectPackage ,language, selectedPackage = "Basic Package", selectedPackagePrice = 1000 }) => {
-    const [formData, setFormData] = useState({});
-    const [isClient, setIsClient] = useState(false);
-
-    useEffect(() => {
-      document.documentElement.lang = language === "arabic" ? "ar" : "en";
-    }, [language]);
-    
-    const t = translations[language] || translations.english;
-
-    useEffect(() => {
-      setIsClient(true);
-      const savedData = localStorage.getItem('formData');
-      setFormData(savedData ? JSON.parse(savedData) : {});
-    }, []);
-
-    useEffect(() => {
-      if (isClient) {
-        localStorage.setItem('formData', JSON.stringify(formData));
-      }
-    }, [formData, isClient]);
-
+const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", selectedPackagePrice = 1000, onAddCustomPackage }) => {
+  const [formData, setFormData] = useState({
+    selectedPackage,
+    selectedPackagePrice,
+    name: "",
+    email: "",
+    city: "",
+    phone: "",
+    guests: "",
+    eventDate: "",
+  });
+  const [isClient, setIsClient] = useState(false);
   const [selectedDrinks, setSelectedDrinks] = useState([]);
   const [selectedFoodItems, setSelectedFoodItems] = useState([]);
-  const [selectedHotDrinks, setSelectedHotBeverage] = useState("");
-  const [selectedColdDrinks, setSelectedColdBeverage] = useState("");
-  const [selectedFood, setSelectedFood] = useState("");
-  const [foodPrice, setFoodPrice] = useState(0);
+  const [customPackage, setCustomPackage] = useState(null); // Add custom package state
   const [showThankYouPopup, setShowThankYouPopup] = useState(false);
 
-  const handleDrinkSelection = (type, name) => {
-    if (!name || selectedDrinks.some((drink) => drink.name === name)) return;
-    setSelectedDrinks((prev) => [...prev, { type, name, price: 200 }]);
-  };
+  useEffect(() => {
+    document.documentElement.lang = language === "arabic" ? "ar" : "en";
+  }, [language]);
 
-  const handleFoodChange = (event) => {
-    const selectedItem = foodItems.find(item => item.name === event.target.value);
-    setSelectedFood(event.target.value);
-    setFoodPrice(selectedItem ? selectedItem.price : 0);
-  
-    // Add the selected food item to the selectedFoodItems state
-    if (selectedItem) {
-      setSelectedFoodItems(prevItems => [...prevItems, selectedItem]);
+  const t = translations[language] || translations.english;
+
+  // Initialize formData, selectedDrinks, selectedFoodItems, and customPackage from localStorage
+  useEffect(() => {
+    setIsClient(true);
+    const savedData = localStorage.getItem('formData');
+    const savedDrinks = localStorage.getItem('selectedDrinks');
+    const savedFoodItems = localStorage.getItem('selectedFoodItems');
+    const savedCustomPackage = localStorage.getItem('customPackage');
+
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      setFormData((prev) => ({
+        ...prev,
+        ...parsedData,
+        selectedPackage,
+        selectedPackagePrice,
+      }));
     }
+
+    if (savedDrinks) {
+      setSelectedDrinks(JSON.parse(savedDrinks));
+    }
+
+    if (savedFoodItems) {
+      setSelectedFoodItems(JSON.parse(savedFoodItems));
+    }
+
+    if (savedCustomPackage) {
+      setCustomPackage(JSON.parse(savedCustomPackage));
+    }
+  }, [selectedPackage, selectedPackagePrice]);
+
+  // Save formData to localStorage
+  useEffect(() => {
+    if (isClient) {
+      localStorage.setItem('formData', JSON.stringify(formData));
+    }
+  }, [formData, isClient]);
+
+  // Save selectedDrinks to localStorage
+  useEffect(() => {
+    if (isClient) {
+      localStorage.setItem('selectedDrinks', JSON.stringify(selectedDrinks));
+    }
+  }, [selectedDrinks, isClient]);
+
+  // Save selectedFoodItems to localStorage
+  useEffect(() => {
+    if (isClient) {
+      localStorage.setItem('selectedFoodItems', JSON.stringify(selectedFoodItems));
+    }
+  }, [selectedFoodItems, isClient]);
+
+  // Save customPackage to localStorage
+  useEffect(() => {
+    if (isClient && customPackage) {
+      localStorage.setItem('customPackage', JSON.stringify(customPackage));
+    }
+  }, [customPackage, isClient]);
+
+  // Update formData when selectedPackage or selectedPackagePrice changes
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      selectedPackage,
+      selectedPackagePrice,
+    }));
+  }, [selectedPackage, selectedPackagePrice]);
+
+  // Function to remove the selected package
+  const removeSelectedPackage = () => {
+    setFormData((prev) => ({
+      ...prev,
+      selectedPackage: null,
+      selectedPackagePrice: null,
+    }));
+    localStorage.removeItem('selectedPackage');
+    localStorage.removeItem('selectedPackagePrice');
   };
-  
 
   const removeDrink = (index) => setSelectedDrinks((prev) => prev.filter((_, i) => i !== index));
   const removeFoodItem = (index) => setSelectedFoodItems((prev) => prev.filter((_, i) => i !== index));
-
 
   const calculateTotal = () => {
     const drinksTotal = selectedDrinks.reduce((sum, drink) => sum + drink.price, 0);
     const foodTotal = selectedFoodItems.reduce((sum, food) => sum + food.price, 0);
     const deliveryCharge = DELIVERY_CHARGES[formData.city] || 0;
-    return (selectedPackagePrice || 0) + drinksTotal + foodTotal + deliveryCharge;
+    const customPackagePrice = customPackage ? customPackage.totalPrice : 0; // Include custom package price
+    return (formData.selectedPackagePrice || 0) + drinksTotal + foodTotal + deliveryCharge + customPackagePrice;
   };
 
   const handleOrderSubmit = () => {
     setShowThankYouPopup(true);
-    const totalAmount = calculateTotal();
-    const message = `
-      Hello, I would like to place an order. Here are the details:
-      
-      *Selected Package:* 
-      - Package Title: ${selectedPackage || "N/A"}
-      - Package Price: ${selectedPackagePrice || 0} AED
   
-      *Selected Food Items:*
-      ${selectedFoodItems.map((food, index) => `- ${food.name} (${food.price} AED)`).join("\n")}
-      
-      *Selected Drinks:*
-      ${selectedDrinks.map((drink, index) => `- ${drink.type}: ${drink.name} (${drink.price} AED)`).join("\n")}   
-      
+    // Pre-calculate data for better performance
+    const totalAmount = calculateTotal();
+    const deliveryCharge = DELIVERY_CHARGES[formData.city] || 0;
+  
+    // Generate details for the selected package
+    const selectedPackageDetails = formData.selectedPackage
+      ? `
+      *Selected Package:* 
+      - Package Title: ${formData.selectedPackage}
+      - Package Price: ${formData.selectedPackagePrice || 0} AED
+      `
+      : "";
+  
+    // Generate details for the custom package
+    const customPackageDetails = customPackage
+      ? `
+      *Custom Package Details:*
+      - Hot Drinks: ${customPackage.hotDrinks.join(", ") || "N/A"}
+      - Cold Drinks: ${customPackage.coldDrinks.join(", ") || "N/A"}
+      - Food Items: ${customPackage.foodItems.join(", ") || "N/A"}
+      - Male Servants: ${customPackage.maleServants || 0}
+      - Female Servants: ${customPackage.femaleServants || 0}
+      - Custom Package Total: ${customPackage.totalPrice || 0} AED
+      `
+      : "";
+  
+    // Combine package details (if both exist, show both; otherwise, show only the available one)
+    const packageDetails = `${selectedPackageDetails}${customPackageDetails}`.trim() || "*Package Details: N/A*";
+  
+    // Client information
+    const clientInfo = `
       *Client Information:*
       - Name: ${formData.name || "N/A"}
       - Email: ${formData.email || "N/A"}
@@ -201,182 +225,203 @@ const translations = {
       - Phone: ${formData.countryCode ? `${formData.countryCode} ${formData.phone}` : formData.phone || "N/A"}
       - Guests: ${formData.guests || "N/A"}
       - Event Date: ${formData.eventDate || "N/A"}
-
-      *Delivery Charge:* ${DELIVERY_CHARGES[formData.city] || 0} AED
+    `.trim();
   
+    // Final message
+    const message = `
+      Hello, I would like to place an order. Here are the details:
+      
+      ${packageDetails}
+      
+      ${clientInfo}
+      
+      *Delivery Charge:* ${deliveryCharge} AED
+      
       *Total Amount:* ${totalAmount} AED
     `.trim();
-    
-    // Encode the message for use in a URL
-    const encodedMessage = encodeURIComponent(message);
-
-    // WhatsApp API link
-    const whatsappLink = `https://wa.me/+971503665518?text=${encodedMessage}`;
-
-    // Redirect to WhatsApp
+  
+    // Encode the message to be sent via WhatsApp
+    const whatsappLink = `https://wa.me/+918879873774?text=${encodeURIComponent(message)}`;
     window.open(whatsappLink, "_blank");
+  };
+  
+  
+
+  // Function to reset the form fields
+  const resetForm = () => {
+    setFormData((prev) => ({
+      ...prev,
+      name: "",
+      email: "",
+      city: "",
+      phone: "",
+      guests: "",
+      eventDate: "",
+    }));
+    setSelectedDrinks([]);
+    setSelectedFoodItems([]);
+    setCustomPackage(null); // Reset custom package
+    localStorage.removeItem('selectedDrinks');
+    localStorage.removeItem('selectedFoodItems');
+    localStorage.removeItem('customPackage');
   };
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 flex items-center justify-center" id="cart">
       <div className="hidden md:block h-full w-full p-8">
-      <img 
-        src="https://i.pinimg.com/736x/36/db/a0/36dba0a1d51aab032bb4855f8075b8c3.jpg" 
-        alt="Package Image" 
-        className="object-cover max-h-full w-full rounded-xl"/>
+        <img 
+          src="https://i.pinimg.com/736x/36/db/a0/36dba0a1d51aab032bb4855f8075b8c3.jpg" 
+          alt="Package Image" 
+          className="object-cover max-h-full w-full rounded-xl"
+        />
       </div>
       <div className="max-w-6xl w-full bg-gray-50 rounded-lg py-8 px-3 md:p-8">
         <h1 className="text-2xl font-bold text-center">{t.header}</h1>
 
-      {/* Drink Selection*/}
-      <div className="flex justify-between items-center my-6">
-      <div className="w-1/2 mr-4">
-          <label htmlFor="hotDrink" className="block text-sm font-semibold mb-2">
-            {t.HotDrink}
-          </label>
-          <select
-            value={selectedHotDrinks}
-            onChange={(e) => handleDrinkSelection("Hot Drink", e.target.value)}
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
-          >
-            <option value="">--{t.Select} {t.HotDrink}--</option>
-            {hotBeverages.map((beverage) => (
-              <option key={beverage} value={beverage}>
-                {beverage}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="w-1/2 pl-2">
-          <label className="block font-semibold">{t.ColdDrink}:</label>
-          <select
-            value={selectedColdDrinks}
-            onChange={(e) => handleDrinkSelection("Cold Beverage", e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
-          >
-            <option value="">--{t.Select} {t.ColdDrink}--</option>
-            {coldBeverages.map((beverage) => (
-              <option key={beverage} value={beverage}>
-                {beverage}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      {/* Food Selection */}
-      <div className="mb-6">
-        <h2 className="text-md font-semibold mb-2">{t.fooditem}</h2>
-        <select
-          value={selectedFood}
-          onChange={handleFoodChange}
-          className="w-full p-2 border border-gray-300 rounded"
-        >
-          <option value="">-- {t.Select} --</option>
-          {foodItems.map((food) => (
-            <option key={food.name} value={food.name}>
-              {food.name} - {food.price} AED
-            </option>
-          ))}
-        </select>
-        {selectedFood && foodPrice > 0 }
-      </div>
-
-
-      {/* Selected Package Details */}
-      <div className="border rounded-lg p-4 my-6 bg-gray-50">
+        {/* Selected Package Details */}
+        <div className="border rounded-lg p-4 my-6 bg-gray-50">
           <h2 className="text-xl font-semibold mb-4">{t.SelectedPackage}</h2>
 
-          {/* Display Package Details Only if Available */}
-          {selectedPackage && selectedPackagePrice && (
+          {formData.selectedPackage && formData.selectedPackagePrice && (
             <>
               <div className="flex justify-between border-b pb-2">
                 <span className="font-medium">{t.title}:</span>
-                <span>{selectedPackage}</span>
+                <span>{formData.selectedPackage}</span>
               </div>
               <div className="flex justify-between border-b pb-2">
                 <span className="font-medium">{t.price}:</span>
-                <span>{selectedPackagePrice} AED</span>
+                <span>{formData.selectedPackagePrice} AED</span>
+                <button
+                  className="text-red-500 font-bold hover:text-red-700"
+                  onClick={removeSelectedPackage}
+                >
+                  <MdDelete />
+                </button>
               </div>
             </>
           )}
 
-      {/* Display Selected Drinks, if Any */}
-      {selectedDrinks.length > 0 && (
-        <div className="mb-4">
-          <h3 className="font-semibold mb-2">{t.drinks}:</h3>
-          {selectedDrinks.map((drink, index) => (
-            <div key={index} className="flex justify-between items-center border-b pb-2">
-              <div>
-                <span>{drink.type}: {drink.name}</span>
+          {/* Display Custom Package, if Any */}
+          {customPackage && (
+            <div className="mb-4">
+              <h3 className="font-semibold mb-2">Custom Package:</h3>
+              <div className="flex justify-between border-b pb-2">
+                <span className="font-medium">Hot Drinks:</span>
+                <span>{customPackage.hotDrinks.join(", ")}</span>
               </div>
-              <div className="flex items-center">
-                <span>{drink.price} AED</span>
+              <div className="flex justify-between border-b pb-2">
+                <span className="font-medium">Cold Drinks:</span>
+                <span>{customPackage.coldDrinks.join(", ")}</span>
+              </div>
+              <div className="flex justify-between border-b pb-2">
+                <span className="font-medium">Food Items:</span>
+                <span>{customPackage.foodItems.join(", ")}</span>
+              </div>
+              <div className="flex justify-between border-b pb-2">
+                <span className="font-medium">Male Servants:</span>
+                <span>{customPackage.maleServants}</span>
+              </div>
+              <div className="flex justify-between border-b pb-2">
+                <span className="font-medium">Female Servants:</span>
+                <span>{customPackage.femaleServants}</span>
+              </div>
+              <div className="flex justify-between border-b pb-2">
+                <span className="font-medium">Total Price:</span>
+                <span>{customPackage.totalPrice} AED</span>
                 <button
-                  className="ml-4 text-red-500 font-bold hover:text-red-700"
-                  onClick={() => removeDrink(index)}
+                  className="text-red-500 font-bold hover:text-red-700"
+                  onClick={() => setCustomPackage(null)}
                 >
                   <MdDelete />
                 </button>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
 
-      {/* Display Selected Food Items, if Any */}
-      {selectedFoodItems.length > 0 && (
-        <div className="mb-">
-          <h3 className="font-semibold ">{t.selectedfood}:</h3>
-          {selectedFoodItems.map((food, index) => (
-            <div key={index} className="flex justify-between items-center border-b pb-2">
-              <div>{food.name}</div>
-              <div className="flex items-center">
-                <span>{food.price} AED</span>
-                <button
-                  className="ml-4 text-red-500 font-bold hover:text-red-700"
-                  onClick={() => removeFoodItem(index)}
-                >
-                  <MdDelete />
-                </button>
+              <div className="border-l-4 border-red-500 bg-red-100 p-4 rounded-lg flex items-start">
+                  <p className="text-red-600 text-sm md:text-base">
+                    You cannot add more items now. Clear the current package to add more.
+                  </p>
               </div>
+
             </div>
-          ))}
+          )}
+
+          {/* Display Selected Drinks, if Any */}
+          {selectedDrinks.length > 0 && (
+            <div className="mb-4">
+              <h3 className="font-semibold mb-2">{t.drinks}:</h3>
+              {selectedDrinks.map((drink, index) => (
+                <div key={index} className="flex justify-between items-center border-b pb-2">
+                  <div>
+                    <span>{drink.type}: {drink.name}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span>{drink.price} AED</span>
+                    <button
+                      className="ml-4 text-red-500 font-bold hover:text-red-700"
+                      onClick={() => removeDrink(index)}
+                    >
+                      <MdDelete />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Display Selected Food Items, if Any */}
+          {selectedFoodItems.length > 0 && (
+            <div className="mb-">
+              <h3 className="font-semibold ">{t.selectedfood}:</h3>
+              {selectedFoodItems.map((food, index) => (
+                <div key={index} className="flex justify-between items-center border-b pb-2">
+                  <div>{food.name}</div>
+                  <div className="flex items-center">
+                    <span>{food.price} AED</span>
+                    <button
+                      className="ml-4 text-red-500 font-bold hover:text-red-700"
+                      onClick={() => removeFoodItem(index)}
+                    >
+                      <MdDelete />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-      )}
-    </div>
 
-    <OrderForm language={language}/>
+        {/* Order Form */}
+        <OrderForm
+          language={language}
+          formData={formData}
+          setFormData={setFormData}
+          resetForm={resetForm}
+        />
 
-      {/* Delivery Charges */}
-      <div className="flex justify-between mt-4 text-lg">
+        {/* Delivery Charges */}
+        <div className="flex justify-between mt-4 text-lg">
           <span>{t.Charges}:</span>
           <span>
             {DELIVERY_CHARGES[formData.city] === 0 ? `${t.Free}` : `${DELIVERY_CHARGES[formData.city]} AED`}
           </span>
-      </div>
+        </div>
 
-
-      {/* Total Price */}
-      <div className="flex justify-between mt-4 text-lg font-bold">
+        {/* Total Price */}
+        <div className="flex justify-between mt-4 text-lg font-bold">
           <span>{t.TotalAmount}:</span>
           <span>{calculateTotal()} AED</span>
-      </div>
+        </div>
 
-
-      {/* <div className="text-left my-5 rounded-lg">
-        <p><strong>Special Offer: </strong><br /> Order Package 3 or higher and get a complimentary Beverage or Perfume with your order.</p>
-      </div> */}
-
-      {/* Place Order Button */}
-      <button
+        {/* Place Order Button */}
+        <button
           className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-green-600"
-          onClick={handleOrderSubmit}>
+          onClick={handleOrderSubmit}
+        >
           {t.order}
         </button>
 
-      {/* Thank You Popup */}
-      {showThankYouPopup && (
+        {/* Thank You Popup */}
+        {showThankYouPopup && (
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
             <div className="bg-white p-6 rounded-lg shadow-lg w-96">
               <h2 className="text-2xl font-semibold mb-4">{t.thankYouTitle}</h2>
@@ -389,8 +434,8 @@ const translations = {
               </button>
             </div>
           </div> 
-      )}
-    </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import CustomePackage from "./CustomePackage";
 
 // Translation object
 const translations = {
@@ -201,8 +199,9 @@ const PackShowcase2 = ({ onSelectPackage, language }) => {
           {Packages2.map((product, index) => {
             const packageTranslation = t.packages[index];
             return (
-              <motion.div
+              <div
                 key={index}
+                id={`package-${index}`} // Add a unique ID for each package section
                 className="min-w-[350px] md:min-w-[300px] h-full rounded-xl overflow-hidden"
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -251,10 +250,9 @@ const PackShowcase2 = ({ onSelectPackage, language }) => {
                   </button>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
-
           
       {/* <CustomePackage language={language}/> */}
         </div>
