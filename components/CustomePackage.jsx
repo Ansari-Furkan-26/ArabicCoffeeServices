@@ -12,6 +12,8 @@ const translations = {
     female: "Female",
     total: "Total Price",
     addToCart: "Add to Cart",
+    errorNoItems: "Kindly select at least one item from the above options.",
+    errorNoServant: "Kindly select at least one male or female servant.",
     hotDrinks: [
       "Arabic coffee",
       "Turkish coffee",
@@ -69,26 +71,53 @@ const translations = {
     female: "الخادمة الأنثى",
     total: "السعر الإجمالي",
     addToCart: "أضف إلى السلة",
+    errorNoItems: "يرجى اختيار عنصر واحد على الأقل من الخيارات أعلاه.",
+    errorNoServant: "يرجى اختيار خادم واحد على الأقل ذكر أو أنثى.",
     hotDrinks: [
       "القهوة العربية",
       "القهوة التركية",
-      "شاي الكرك",
-      "الشاي الأخضر",
-      "شاي الليمون والعشب",
+      "شاي أسود مع زعفران",
+      "شاي أخضر",
+      "شاي عشب الليمون",
+      "شاي مغربي",
+      "شاي الأناناس بالقرفة",
+      "سحلب",
+      "شاي التفاح",
+      "كابتشينو",
+      "حبّة الحمرا بالكاسترد",
+      "شوكولاتة ساخنة",
+      "وردة مع كاسترد",
+      "فستق لاتيه",
+      "حليب بالزنجبيل",
+      "حليب مع زعفران",
+      "حليب بالزعتر",
     ],
     coldDrinks: [
       "فالوده",
-      "كركديه",
-      "موهيتو بلو بيري",
-      "موهيتو فاكهة العاطفة",
+      "موهيتو باشن فروت",
+      "موهيتو بلوبيري",
+      "لاتيه الفستق",
       "ليمون مع الخزامى",
+      "بينا كولادا",
+      "فالودة مانجو",
+      "ماء جوز الهند",
+      "مشروب المشمش",
+      "شاي مثلج مع خوخ",
+      "ليمون بالنعناع",
+      "الكركديه",
+      "مشروب زعفران",
+      "عصير برتقال",
+      "فالودة فراولة",
     ],
     foodItems: [
-      "فالوده فراولة",
-      "فالوده مانجو",
-      "كولادا الأناناس",
-      "ليمون مع النعناع",
-      "عصير البرتقال",
+      "إماراتي بلاليت - 400 درهم",
+      "دانجو (حمص) - 400 درهم ",
+      "لقيمات - 500 درهم",
+      "خبوس شباب - 500 درهم",
+      "خبيس - 500 درهم",
+      "محلہ ز اید - 600 درهم",
+      "خبس خمير - 800 درهم",
+      "خبس رغاغ - 1000 درهم",
     ],
   },
 };
@@ -102,11 +131,14 @@ const foodItemPrices = {
   "Mahallah Zayed - 600 AED": 600,
   "Khubs khameer - 800 AED": 800,
   "Khubs rigag - 1000 AED": 1000,
-  "فالوده فراولة": 400,
-  "فالوده مانجو": 400,
-  "كولادا الأناناس": 500,
-  "ليمون مع النعناع": 500,
-  "عصير البرتقال": 500,
+  "إماراتي بلاليت - 400 درهم": 400,
+  "دانجو (حمص) - 400 درهم ": 400,
+  "لقيمات - 500 درهم": 500,
+  "خبوس شباب - 500 درهم": 500,
+  "خبيس - 500 درهم": 500,
+  "محلہ ز اید - 600 درهم": 600,
+  "خبس خمير - 800 درهم": 800,
+  "خبس رغاغ - 1000 درهم": 1000,
 };
 
 const CustomePackage = ({ language, onAddToCart }) => {
@@ -143,11 +175,11 @@ const CustomePackage = ({ language, onAddToCart }) => {
       selectedColdDrinks.length === 0 &&
       selectedFoodItems.length === 0
     ) {
-      setError("Kindly select at least one item from the above options.");
+      setError(t.errorNoItems);
       return;
     }
     if (maleServants + femaleServants === 0) {
-      setError("Kindly select at least one male or female servant.");
+      setError(t.errorNoServant);
       return;
     }
 

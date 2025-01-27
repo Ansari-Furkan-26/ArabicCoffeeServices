@@ -30,6 +30,16 @@ const translations = {
     specialOffer: "Special Offer: Order Package 3 or higher and get a complimentary Beverage or Perfume with your order.",
     order: "Order Now",
     Free: "Free",
+    customPackageDetails: {
+      header: "Custom Package Details",
+      hotDrinks: "Hot Drinks",
+      coldDrinks: "Cold Drinks",
+      foodItems: "Food Items",
+      maleServants: "Male Servants",
+      femaleServants: "Female Servants",
+      totalPrice: "Total Price",
+      clearPackageMessage: "You cannot add more items now. Clear the current package to add more.",
+    },
   },
   arabic: {
     header: "ملخص العربة",
@@ -52,11 +62,21 @@ const translations = {
     guests: "عدد الضيوف",
     eventDate: "تاريخ الحدث",
     TotalAmount: "المجموع الإجمالي",
-    thankYouTitle: "🎉 شكراً!",
-    thankYouMessage: "تم إرسال طلبك بنجاح. سنصل إليك قريبًا.",
+    thankYouTitle: "🎉 شكرًا لك",
+    thankYouMessage: "لقد تم تقديم طلبك بنجاح. سوف نتواصل معك قريبا.",
     specialOffer: "عرض خاص: اطلب حزمة 3 أو أكثر واحصل على مشروب أو عطر مجاني مع طلبك.",
     order: "اطلب الآن",
     Free: "حر",
+    customPackageDetails: {
+      header: "تفاصيل الحزمة المخصصة",
+      hotDrinks: "المشروبات الساخنة",
+      coldDrinks: "المشروبات الباردة",
+      foodItems: "أصناف الطعام",
+      maleServants: "الخدم الذكور",
+      femaleServants: "الخدم الإناث",
+      totalPrice: "السعر الإجمالي",
+      clearPackageMessage: "لا يمكنك إضافة المزيد من العناصر الآن. قم بمسح الحزمة الحالية لإضافة المزيد.",
+    },
   },
 };
 
@@ -304,29 +324,29 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
           {/* Display Custom Package, if Any */}
           {customPackage && (
             <div className="mb-4">
-              <h3 className="font-semibold mb-2">Custom Package:</h3>
+              <h3 className="font-semibold mb-2">{t.customPackageDetails.header}:</h3>
               <div className="flex justify-between border-b pb-2">
-                <span className="font-medium">Hot Drinks:</span>
-                <span>{customPackage.hotDrinks.join(", ")}</span>
+                <span className="font-medium">{t.customPackageDetails.hotDrinks}:</span>
+                <span>{customPackage.hotDrinks.join(", ") || t.Select}</span>
               </div>
               <div className="flex justify-between border-b pb-2">
-                <span className="font-medium">Cold Drinks:</span>
-                <span>{customPackage.coldDrinks.join(", ")}</span>
+                <span className="font-medium">{t.customPackageDetails.coldDrinks}:</span>
+                <span>{customPackage.coldDrinks.join(", ") || t.Select}</span>
               </div>
               <div className="flex justify-between border-b pb-2">
-                <span className="font-medium">Food Items:</span>
-                <span>{customPackage.foodItems.join(", ")}</span>
+                <span className="font-medium">{t.customPackageDetails.foodItems}:</span>
+                <span>{customPackage.foodItems.join(", ") || t.Select}</span>
               </div>
               <div className="flex justify-between border-b pb-2">
-                <span className="font-medium">Male Servants:</span>
-                <span>{customPackage.maleServants}</span>
+                <span className="font-medium">{t.customPackageDetails.maleServants}:</span>
+                <span>{customPackage.maleServants || 0}</span>
               </div>
               <div className="flex justify-between border-b pb-2">
-                <span className="font-medium">Female Servants:</span>
-                <span>{customPackage.femaleServants}</span>
+                <span className="font-medium">{t.customPackageDetails.femaleServants}:</span>
+                <span>{customPackage.femaleServants || 0}</span>
               </div>
               <div className="flex justify-between border-b pb-2">
-                <span className="font-medium">Total Price:</span>
+                <span className="font-medium">{t.customPackageDetails.totalPrice}:</span>
                 <span>{customPackage.totalPrice} AED</span>
                 <button
                   className="text-red-500 font-bold hover:text-red-700"
@@ -338,8 +358,7 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
 
               <div className="border-l-4 border-red-500 bg-red-100 p-4 rounded-lg flex items-start">
                   <p className="text-red-600 text-sm md:text-base">
-                    You cannot add more items now. Clear the current package to add more.
-                  </p>
+                  {t.customPackageDetails.clearPackageMessage}</p>
               </div>
 
             </div>
@@ -430,7 +449,7 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
                 className="mt-4 bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700"
                 onClick={() => setShowThankYouPopup(false)}
               >
-                Close
+                {language === "arabic" ? "إغلاق" : "Close"}
               </button>
             </div>
           </div> 

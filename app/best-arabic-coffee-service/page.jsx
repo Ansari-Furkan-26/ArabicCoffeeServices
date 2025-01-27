@@ -141,7 +141,7 @@ function Eventpg() {
                   {event.description[language] || 'Description not available'}
                 </p>
               </div>
-              <a href="/luxury-hospitality-services">
+              <a href="/arabic-coffee-services">
                 <button className="bg-blue-500 text-white py-2 px-6 rounded-lg self-end mt-4 hover:bg-blue-600 text-sm">
                   {language === 'english' ? 'Savor the Experience' : 'تذوق التجربة'}
                 </button>
