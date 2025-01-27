@@ -241,7 +241,7 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
     `.trim();
   
     // Encode the message to be sent via WhatsApp
-    const whatsappLink = `https://wa.me/+918879873774?text=${encodeURIComponent(message)}`;
+    const whatsappLink = `https://wa.me/+971503665518?text=${encodeURIComponent(message)}`;
     window.open(whatsappLink, "_blank");
   };
   

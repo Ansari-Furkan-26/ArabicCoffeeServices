@@ -37,9 +37,9 @@ const CustomizationIntro = ({ language = "english" }) => {
   return (
     <div className="flex flex-col md:flex-row items-center justify-between bg-gray-100 p-6 rounded-lg shadow-lg">
       {/* Left Section - Text */}
-      <div className="text-black max-w-md">
-        <h1 className="text-3xl font-semibold mb-4">{currentContent.heading}</h1>
-        <p className="text-lg mb-6">{currentContent.description}</p>
+      <div className="text-black max-w-md text-center md:text-left">
+        <h1 className="text-4xl font-bold mb-4">{currentContent.heading}</h1>
+        <p className="mb-6 text-gray-600 max-w-2xl mx-auto">{currentContent.description}</p>
         <button
           onClick={handleButtonClick}
           className="px-6 py-3 bg-black text-gray-50 rounded-lg shadow-lg transition-all"
