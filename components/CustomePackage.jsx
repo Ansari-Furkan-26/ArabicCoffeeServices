@@ -102,6 +102,11 @@ const foodItemPrices = {
   "Mahallah Zayed - 600 AED": 600,
   "Khubs khameer - 800 AED": 800,
   "Khubs rigag - 1000 AED": 1000,
+  "فالوده فراولة": 400,
+  "فالوده مانجو": 400,
+  "كولادا الأناناس": 500,
+  "ليمون مع النعناع": 500,
+  "عصير البرتقال": 500,
 };
 
 const CustomePackage = ({ language, onAddToCart }) => {
