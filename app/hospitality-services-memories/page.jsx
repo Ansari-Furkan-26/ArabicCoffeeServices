@@ -17,6 +17,14 @@ export default function GalleryPage() {
   const [language, setLanguage] = useState("english");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Load the language preference from localStorage on mount
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
+
   const toggleLanguage = () => {
     setLanguage((prev) => (prev === "english" ? "arabic" : "english"));
   };

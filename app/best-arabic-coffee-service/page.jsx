@@ -1,5 +1,5 @@
 "use client"; // Marks the file as a client-side component
-import React, { useState } from "react"; // Ensure useState is imported
+import React, { useState, useEffect } from "react"; // Ensure useState and useEffect are imported
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingButton from "@/components/Floating";
@@ -42,14 +42,24 @@ const events = [
     },
   }];
 
-function Eventpg() {
-  const [language, setLanguage] = useState("english");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const toggleLanguage = () => {
-    setLanguage((prev) => (prev === "english" ? "arabic" : "english"));
-  };
-
+  function Eventpg() {
+    const [language, setLanguage] = useState("english");
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+    // Load the language from localStorage when the component mounts
+    useEffect(() => {
+      const savedLanguage = localStorage.getItem("language");
+      if (savedLanguage) {
+        setLanguage(savedLanguage);
+      }
+    }, []);
+  
+    const toggleLanguage = () => {
+      const newLanguage = language === "english" ? "arabic" : "english";
+      setLanguage(newLanguage);
+      localStorage.setItem("language", newLanguage); // Save the language to localStorage
+    };
+  
   return (
     <div className="bg-gray-100 min-h-screen" id="ExploreMoment">
       {/* <NextSeo
