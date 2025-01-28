@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import About from '@/components/About';
 // import Gallery from '@/components/HeroGallery';
 import Navbar from "@/components/Navbar";
@@ -22,8 +22,19 @@ const AboutSection = () => {
   const [language, setLanguage] = useState("english");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Load saved language from localStorage
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
+
+  // Toggle language and save it to localStorage
   const toggleLanguage = () => {
-    setLanguage((prev) => (prev === "english" ? "arabic" : "english"));
+    const newLanguage = language === "english" ? "arabic" : "english";
+    setLanguage(newLanguage);
+    localStorage.setItem("language", newLanguage); // Persist language state
   };
 
   return (

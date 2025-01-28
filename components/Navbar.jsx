@@ -8,7 +8,6 @@ import { TiArrowSortedDown } from "react-icons/ti";
 import Link from "next/link";
 
 const Navbar = ({
-  
   mobileMenuOpen,
   setMobileMenuOpen,
   language = "english",
@@ -16,6 +15,20 @@ const Navbar = ({
 }) => {
   const [isContactDropdownOpen, setContactDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  // Persist language toggle state
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage && savedLanguage !== language) {
+      toggleLanguage(); // Sync with saved language if needed
+    }
+  }, []);
+
+  const handleToggleLanguage = () => {
+    const newLanguage = language === "english" ? "arabic" : "english";
+    localStorage.setItem("language", newLanguage); // Store in localStorage
+    toggleLanguage(); // Parent handler
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -62,7 +75,7 @@ const Navbar = ({
     <header className="absolute inset-x-0 top-0 z-50">
       {/* Mobile Banner */}
       <div className="block lg:hidden text-center pt-3">
-      <div className="absolute inset-0 h-12 bg-black opacity-40 transition-opacity"></div>
+        <div className="absolute inset-0 h-12 bg-black opacity-40 transition-opacity"></div>
         <h1 className="text-white text-sm font-semibold drop-shadow-lg">{t.banner}</h1>
       </div>
 
@@ -84,7 +97,7 @@ const Navbar = ({
         {/* Mobile Menu Button */}
         <div className="flex lg:hidden items-center gap-4">
           <button
-            onClick={toggleLanguage}
+            onClick={handleToggleLanguage}
             className="flex items-center gap-2 text-white text-lg px-2 py-1 rounded-md"
             aria-label="Toggle Language"
           >
@@ -117,7 +130,7 @@ const Navbar = ({
         {/* Contact Dropdown and Language Toggle */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-4">
           <button
-            onClick={toggleLanguage}
+            onClick={handleToggleLanguage}
             className="flex items-center gap-2 text-white text-sm font-semibold px-3 py-1 rounded-md"
           >
             <MdLanguage />
@@ -168,12 +181,13 @@ const Navbar = ({
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm -mr-24">
           <div className="flex items-center justify-between">
             <Link href="/" className="-mx-6 flex items-center">
-              <Image src={logoPath} alt="Rukn Al Dyafa Logo" width={100} height={50} className="ml-5 h-16 w-auto"/>
+              <Image src={logoPath} alt="Rukn Al Dyafa Logo" width={100} height={50} className="ml-5 h-16 w-auto" />
             </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="-m-2.5 p-2.5 text-white right-6 fixed">
+              className="-m-2.5 p-2.5 text-white right-6 fixed"
+            >
               <XMarkIcon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
@@ -191,18 +205,20 @@ const Navbar = ({
               ))}
             </div>
             <div className="py-6">
-            <a
+              <a
                 href="https://wa.me/+971503665518"
                 className="block rounded-lg px-3 py-2.5 text-base font-semibold text-gray-100 hover:bg-gray-700"
                 target="_blank"
-                rel="noopener noreferrer">
+                rel="noopener noreferrer"
+              >
                 +971 50 366 5518
               </a>
               <a
                 href="https://wa.me/+971555428833"
                 className="block rounded-lg px-3 py-2.5 text-base font-semibold text-gray-100 hover:bg-gray-700"
                 target="_blank"
-                rel="noopener noreferrer">
+                rel="noopener noreferrer"
+              >
                 +971 55 542 8833
               </a>
             </div>

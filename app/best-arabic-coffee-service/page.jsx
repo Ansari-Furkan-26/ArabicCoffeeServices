@@ -1,5 +1,5 @@
 "use client"; // Marks the file as a client-side component
-import React, { useState } from "react"; // Ensure useState is imported
+import React, { useState, useEffect } from "react"; // Ensure useState and useEffect are imported
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingButton from "@/components/Floating";
@@ -42,56 +42,26 @@ const events = [
     },
   }];
 
-function Eventpg() {
-  const [language, setLanguage] = useState("english");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const toggleLanguage = () => {
-    setLanguage((prev) => (prev === "english" ? "arabic" : "english"));
-  };
-
+  function Eventpg() {
+    const [language, setLanguage] = useState("english");
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+    // Load the language from localStorage when the component mounts
+    useEffect(() => {
+      const savedLanguage = localStorage.getItem("language");
+      if (savedLanguage) {
+        setLanguage(savedLanguage);
+      }
+    }, []);
+  
+    const toggleLanguage = () => {
+      const newLanguage = language === "english" ? "arabic" : "english";
+      setLanguage(newLanguage);
+      localStorage.setItem("language", newLanguage); // Save the language to localStorage
+    };
+  
   return (
     <div className="bg-gray-100 min-h-screen" id="ExploreMoment">
-      {/* <NextSeo
-        title="Rukn Al Dyafa - Premium Event Planning & Management Services in UAE"
-        description="From weddings to corporate events, we provide bespoke catering and beverage solutions in the UAE. Tailored to perfection for any occasion."
-        canonical="https://www.ruknaldyafa.ae/events"
-        openGraph={{
-          url: 'https://www.ruknaldyafa.ae/events',
-          title: 'Rukn Al Dyafa - Events',
-          description:
-            "Discover exquisite catering services for every occasion in the UAE. From luxury weddings to corporate events and gala dinners, we provide custom menus and premium beverages designed to elevate your events and delight your guests.",
-          images: [
-            {
-              url: 'https://i.pinimg.com/736x/c0/88/59/c0885989e1a17079e0e8ec5d5c5138df.jpg',
-              width: 800,
-              height: 600,
-              alt: 'Exquisite Catering Services for Events',
-            },
-          ],
-          site_name: 'Rukn Al Dyafa',
-          type: 'website',
-        }}
-        twitter={{
-          cardType: 'summary_large_image',
-          title: 'Rukn Al Dyafa - Events',
-          description:
-            "Discover exquisite catering services for every occasion in the UAE. From luxury weddings to corporate events and gala dinners, we provide custom menus and premium beverages designed to elevate your events and delight your guests.",
-          image: 'https://i.pinimg.com/736x/c0/88/59/c0885989e1a17079e0e8ec5d5c5138df.jpg',
-          url: 'https://www.ruknaldyafa.ae/events',
-        }}
-        additionalMetaTags={[
-          {
-            name: 'author',
-            content: 'Rukn Al Dyafa Team',
-          },
-          {
-            name: 'keywords',
-            content:
-              'birthday party beverage services UAE, wedding beverage catering Dubai, corporate event drink services UAE, event catering UAE, luxury event drinks catering Dubai, engagement party beverage setup UAE, wedding catering UAE, corporate beverage services',
-          },
-        ]}
-      /> */}
       <Navbar
         language={language}
         toggleLanguage={toggleLanguage}

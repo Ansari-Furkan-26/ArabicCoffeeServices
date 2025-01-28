@@ -14,6 +14,14 @@ const Checkout = () => {
   const [language, setLanguage] = useState("english");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Load language preference from localStorage when component mounts
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
+
   useEffect(() => {
     const savedPackage = localStorage.getItem('selectedPackage');
     const savedPackagePrice = localStorage.getItem('selectedPackagePrice');

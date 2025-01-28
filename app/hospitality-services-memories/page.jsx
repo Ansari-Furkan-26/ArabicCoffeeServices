@@ -17,6 +17,14 @@ export default function GalleryPage() {
   const [language, setLanguage] = useState("english");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Load the language preference from localStorage on mount
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
+
   const toggleLanguage = () => {
     setLanguage((prev) => (prev === "english" ? "arabic" : "english"));
   };
@@ -42,41 +50,6 @@ export default function GalleryPage() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      {/* <NextSeo
-        title="Rukn Al Dyafa - Luxury Event Planning & Management Services for guests"
-        description="Celebrate life’s precious moments with our elegant catering and beverage services in the UAE. Perfect for weddings, parties, and special events."
-        canonical="https://www.ruknaldyafa.ae/capture-moments"
-        openGraph={{
-          url: 'https://www.ruknaldyafa.ae/capture-moments',
-          title: 'Luxury Catering UAE | Rukn Al Dyafa',
-          description:
-            "Explore our gallery showcasing premium catering services, perfect for weddings and luxury events. Capture unforgettable moments with world-class hospitality.",
-          images: [
-            {
-              url: 'https://i.pinimg.com/736x/c0/dc/49/c0dc498d4b9c855c8e299498ea2b2ea4.jpg',
-              width: 800,
-              height: 600,
-              alt: 'Luxury Catering Services',
-            },
-          ],
-          site_name: 'Rukn Al Dyafa',
-          type: 'website',
-        }}
-        twitter={{
-          cardType: 'summary_large_image',
-          title: 'Rukn Al Dyafa - Premium Catering',
-          description:
-            'Experience bespoke catering services in UAE for all your special events and weddings. View our gallery of stunning culinary displays.',
-          image: 'https://i.pinimg.com/736x/c0/dc/49/c0dc498d4b9c855c8e299498ea2b2ea4.jpg',
-        }}
-        additionalMetaTags={[
-          {
-            name: 'author',
-            content: 'Rukn Al Dyafa Team',
-          },
-        ]}
-        openGraphType="website"
-      /> */}
       <Navbar
         language={language}
         toggleLanguage={toggleLanguage}
