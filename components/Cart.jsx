@@ -450,7 +450,7 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
 
         {/* Place Order Button */}
         <button
-          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-green-600 disabled:bg-gray-400"
+          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 disabled:bg-gray-400"
           onClick={handleOrderSubmit}
           disabled={!isFormValid()}
         >
