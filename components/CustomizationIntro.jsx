@@ -1,60 +1,57 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 // Define content for both languages
 const content = {
   english: {
-    heading: "Customize Your Perfect Coffee Package!",
+    heading: "Customize Your Perfect Package!",
     description:
-      "Want a special coffee experience with personalized options like hot and cold drinks, food items, and dedicated servers? You're just a click away from crafting your dream coffee package tailored to your taste.",
+      "Want a special coffee experience with personalized options and dedicated servers? You're just a click away from crafting your dream package tailored to your taste.",
+    imageAlt: "Coffee Package", 
     button: "Create Your Special Package",
-    imageAlt: "Coffee Package",
   },
   arabic: {
-    heading: "قم بتخصيص باقة القهوة المثالية لك!",
+    heading: "قم بتخصيص الحزمة المثالية لك!",
     description:
-      "هل تريد تجربة قهوة مميزة مع خيارات مخصصة مثل المشروبات الساخنة والباردة والأطعمة والخوادم المخصصة؟ أنت على بعد نقرة واحدة فقط من تصميم باقة القهوة التي تحلم بها والتي تناسب ذوقك.",
-    button: "أنشئ باقتك الخاصة",
+    "هل تريد تجربة قهوة مميزة مع خيارات مخصصة وخوادم مخصصة؟ أنت على بعد نقرة واحدة فقط من تصميم باقة أحلامك المصممة خصيصًا لتلائم ذوقك.",
     imageAlt: "باقة القهوة",
+    button: "أنشئ باقتك الخاصة",
   },
 };
 
 const CustomizationIntro = ({ language = "english" }) => {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true); // Ensure that this is rendered on the client side
-  }, []);
-
-  const handleButtonClick = () => {
+  const handlePackageClick = () => {
     // Navigate to the specific section of the desired page
     window.location.href = "/arabic-coffee-services#custom-package";
   };
 
-  if (!isClient) return null; // Avoid rendering before client-side mount
-
   const currentContent = content[language];
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between bg-gray-100 p-6 rounded-lg shadow-lg">
-      {/* Left Section - Text */}
-      <div className="text-black max-w-md text-center md:text-left">
-        <h1 className="text-4xl font-bold mb-4">{currentContent.heading}</h1>
-        <p className="mb-6 text-gray-600 max-w-2xl mx-auto">{currentContent.description}</p>
-        <button
-          onClick={handleButtonClick}
-          className="px-6 py-3 bg-black text-gray-50 rounded-lg shadow-lg transition-all"
-        >
-          {currentContent.button}
-        </button>
+    <div className="flex flex-col items-center justify-center bg-gray-100 p-6 rounded-lg shadow-lg">
+      {/* Heading */}
+      <div className="text-black max-w-md text-center">
+        <h1 className="text-4xl font-bold md:mb-4 text-center">
+          {currentContent.heading}
+        </h1>
       </div>
 
-      {/* Right Section - Image */}
-      <div className="mt-6 md:mt-0 md:w-1/2">
+      {/* Package */}
+      <div
+        onClick={handlePackageClick}
+        className="mt-6 md:mt-0 md:w-1/2 p-5 rounded-xl bg-white flex flex-col items-center text-center relative cursor-pointer hover:scale-105 transition-transform duration-300"
+      >
         <img
-          src="https://i.pinimg.com/736x/14/b1/50/14b150f878c0fc72a6ef4cbfbf281c6c.jpg" // Replace with the URL of your image
+          src="https://i.pinimg.com/736x/14/b1/50/14b150f878c0fc72a6ef4cbfbf281c6c.jpg"
           alt={currentContent.imageAlt}
-          className="w-full h-full object-cover rounded-lg shadow-lg"
+          className="w-full max-h-[300px] object-cover rounded-lg shadow-lg"
         />
+        <div className="absolute inset-0 bg-black opacity-30 rounded-lg"></div> {/* Overlay */}
+        <p className="my-4 text-gray-600 max-w-lg relative z-10">
+          {currentContent.description}
+        </p>
+        <div className="absolute inset-0 z-10 flex items-center justify-center text-white text-lg font-semibold">
+          {currentContent.button}
+        </div>
       </div>
     </div>
   );

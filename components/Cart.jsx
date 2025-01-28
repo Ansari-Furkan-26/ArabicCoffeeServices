@@ -206,38 +206,30 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
 
   const handleOrderSubmit = () => {
     setShowThankYouPopup(true);
-  
-    // Pre-calculate data for better performance
     const totalAmount = calculateTotal();
-    const deliveryCharge = DELIVERY_CHARGES[formData.city] || 0;
-  
-    // Generate details for the selected package
-    const selectedPackageDetails = formData.selectedPackage
-      ? `
-      *Selected Package:* 
-      - Package Title: ${formData.selectedPackage}
-      - Package Price: ${formData.selectedPackagePrice || 0} AED
-      `
-      : "";
-  
-    // Generate details for the custom package
+
+    // Custom package details
     const customPackageDetails = customPackage
       ? `
-      *Custom Package Details:*
-      - Hot Drinks: ${customPackage.hotDrinks.join(", ") || "N/A"}
-      - Cold Drinks: ${customPackage.coldDrinks.join(", ") || "N/A"}
-      - Food Items: ${customPackage.foodItems.join(", ") || "N/A"}
-      - Male Servants: ${customPackage.maleServants || 0}
-      - Female Servants: ${customPackage.femaleServants || 0}
-      - Custom Package Total: ${customPackage.totalPrice || 0} AED
+        *Custom Package Details:*
+        - Hot Drinks: ${customPackage.hotDrinks.join(", ") || "N/A"}
+        - Cold Drinks: ${customPackage.coldDrinks.join(", ") || "N/A"}
+        - Food Items: ${customPackage.foodItems.join(", ") || "N/A"}
+        - Male Servants: ${customPackage.maleServants || 0}
+        - Female Servants: ${customPackage.femaleServants || 0}
+        - Custom Package Total: ${customPackage.totalPrice || 0} AED
       `
       : "";
-  
-    // Combine package details (if both exist, show both; otherwise, show only the available one)
-    const packageDetails = `${selectedPackageDetails}${customPackageDetails}`.trim() || "*Package Details: N/A*";
-  
-    // Client information
-    const clientInfo = `
+
+    const message = `
+      Hello, I would like to place an order. Here are the details:
+      
+      *Selected Package:* 
+      - Package Title: ${formData.selectedPackage || "N/A"}
+      - Package Price: ${formData.selectedPackagePrice || 0} AED
+       
+      ${customPackageDetails}
+
       *Client Information:*
       - Name: ${formData.name || "N/A"}
       - Email: ${formData.email || "N/A"}
@@ -245,24 +237,36 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
       - Phone: ${formData.countryCode ? `${formData.countryCode} ${formData.phone}` : formData.phone || "N/A"}
       - Guests: ${formData.guests || "N/A"}
       - Event Date: ${formData.eventDate || "N/A"}
-    `.trim();
-  
-    // Final message
-    const message = `
-      Hello, I would like to place an order. Here are the details:
-      
-      ${packageDetails}
-      
-      ${clientInfo}
-      
-      *Delivery Charge:* ${deliveryCharge} AED
-      
+
+      *Delivery Charge:* ${DELIVERY_CHARGES[formData.city] || 0} AED
+
       *Total Amount:* ${totalAmount} AED
     `.trim();
-  
-    // Encode the message to be sent via WhatsApp
-    const whatsappLink = `https://wa.me/+971503665518?text=${encodeURIComponent(message)}`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappLink = `https://wa.me/+918879873774?text=${encodedMessage}`;
     window.open(whatsappLink, "_blank");
+
+    // Clear local storage
+    localStorage.removeItem('formData');
+    localStorage.removeItem('selectedDrinks');
+    localStorage.removeItem('selectedFoodItems');
+    localStorage.removeItem('customPackage');
+
+    // Reset state
+    setFormData({
+      selectedPackage: null,
+      selectedPackagePrice: null,
+      name: "",
+      email: "",
+      city: "",
+      phone: "",
+      guests: "",
+      eventDate: "",
+    });
+    setSelectedDrinks([]);
+    setSelectedFoodItems([]);
+    setCustomPackage(null);
   };
   
   

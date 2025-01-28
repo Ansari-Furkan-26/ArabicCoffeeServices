@@ -48,7 +48,7 @@ const Packages = [
 
 const About = ({ language = "english" }) => {
     return (
-      <div className="h-full py-8 bg-gray-100" id="Product">
+      <div className="h-full pt-8 bg-gray-100" id="Product">
       {/* Heading */}
       <h1 className="text-3xl font-bold text-center mb-6">
         {language === "english" ? "Our Exclusive Packages" : "باقاتنا الحصرية"}

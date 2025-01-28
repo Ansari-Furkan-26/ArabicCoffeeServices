@@ -301,32 +301,43 @@ const CustomePackage = ({ language, onAddToCart }) => {
             </div>
           </div>
 
-          {/* Servant Options */}
-          <div className="my-4">
-            <h3 className="text-lg font-semibold mb-2">{t.Servant}</h3>
-            <div className="flex md:flex-nowrap flex-wrap gap-4">
-              <div className="flex items-center">
-                <label>{t.male}</label>
-                <input
-                  type="number"
-                  value={maleServants}
-                  onChange={(e) => setMaleServants(Number(e.target.value))}
-                  className="ml-2 p-2 border rounded w-20"
-                  min="0"
-                />
-              </div>
-              <div className="flex items-center">
-                <label>{t.female}</label>
-                <input
-                  type="number"
-                  value={femaleServants}
-                  onChange={(e) => setFemaleServants(Number(e.target.value))}
-                  className="ml-2 p-2 border rounded w-20"
-                  min="0"
-                />
-              </div>
-            </div>
-          </div>
+         {/* Servant Options */}
+<div className="my-4">
+  <h3 className="text-lg font-semibold mb-2">{t.Servant}</h3>
+  <div className="flex md:flex-nowrap flex-wrap gap-4">
+    <div className="flex items-center">
+      <label>{t.male}</label>
+      <select
+        value={maleServants}
+        onChange={(e) => setMaleServants(Number(e.target.value))}
+        className="ml-2 p-2 border rounded w-20"
+      >
+        {/* Generate options from 0 to 10 */}
+        {[...Array(11).keys()].map((num) => (
+          <option key={num} value={num}>
+            {num}
+          </option>
+        ))}
+      </select>
+    </div>
+    <div className="flex items-center">
+      <label>{t.female}</label>
+      <select
+        value={femaleServants}
+        onChange={(e) => setFemaleServants(Number(e.target.value))}
+        className="ml-2 p-2 border rounded w-20"
+      >
+        {/* Generate options from 0 to 10 */}
+        {[...Array(11).keys()].map((num) => (
+          <option key={num} value={num}>
+            {num}
+          </option>
+        ))}
+      </select>
+    </div>
+  </div>
+</div>
+
 
           {/* Total Price */}
           <div className="my-4">
