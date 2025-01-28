@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-const OrderForm = ({ language = "english" }) => {
+const OrderForm = ({ language = 'english' }) => {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
@@ -13,27 +13,40 @@ const OrderForm = ({ language = "english" }) => {
     eventDate: '',
     deliveryCharge: 0,
   });
-  const [showError, setShowError] = useState(false); // State to manage error visibility
+
+  const [errors, setErrors] = useState({
+    name: false,
+    email: false,
+    city: false,
+    phone: false,
+    guests: false,
+    eventDate: false,
+  });
 
   const cityCharges = {
     'Abu Dhabi': 300,
-    'Ajman': 0,
+    Ajman: 0,
     'Al Ain': 400,
-    'Dubai': 0,
-    'Fujairah': 300,
+    Dubai: 0,
+    Fujairah: 300,
     'Ras Al Khaimah': 300,
-    'Sharjah': 0,
+    Sharjah: 0,
     'Umm Al Quwain': 0,
   };
 
   const cities = Object.keys(cityCharges);
 
-  // Load form data from localStorage on mount
+  // Load saved form data from localStorage on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const savedData = localStorage.getItem('formData');
-      if (savedData) {
-        setFormData(JSON.parse(savedData));
+      try {
+        const parsedData = JSON.parse(savedData);
+        if (parsedData && typeof parsedData === 'object') {
+          setFormData(parsedData);
+        }
+      } catch (e) {
+        console.error('Invalid data in localStorage', e);
       }
     }
   }, []);
@@ -43,37 +56,51 @@ const OrderForm = ({ language = "english" }) => {
     const updatedFormData = {
       ...formData,
       [name]: value,
-      deliveryCharge: name === 'city' ? cityCharges[value] || 0 : formData.deliveryCharge,
+      deliveryCharge: name === 'city' ? cityCharges[value] ?? 0 : formData.deliveryCharge,
     };
 
     setFormData(updatedFormData);
 
-    // Save the updated data to localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem('formData', JSON.stringify(updatedFormData));
     }
+
+    // Clear error for the current field
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: false,
+    }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {
+      name: formData.name.trim() === '',
+      email: formData.email.trim() === '',
+      city: formData.city.trim() === '',
+      phone: !/^\d{10}$/.test(formData.phone),
+      guests: formData.guests <= 0,
+      eventDate: formData.eventDate.trim() === '',
+    };
+
+    setErrors(newErrors);
+
+    return !Object.values(newErrors).some((error) => error);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check if all fields are filled
-    const isFormValid = Object.values(formData).every((field) => field !== '' || field === 0);
+    const isFormValid = validateForm();
+    if (!isFormValid) return;
 
-    if (!isFormValid) {
-      setShowError(true); // Show error message if form is not valid
-      return;
-    }
-
-    setShowError(false); // Hide error message if form is valid
     console.log('Form submitted:', formData);
 
-    // Save the final data to localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem('formData', JSON.stringify(formData));
     }
-   // Refresh the page
-  window.location.reload();
+
+    // Redirect to a thank-you page or reset the form
+    window.location.reload();
   };
 
   const renderInput = (label, name, type = 'text', additionalProps = {}) => (
@@ -88,39 +115,50 @@ const OrderForm = ({ language = "english" }) => {
         required
         {...additionalProps}
       />
+      {errors[name] && (
+        <div className="text-red-500 text-sm mt-1">{translations[language][`${name}Error`]}</div>
+      )}
     </div>
   );
 
   const translations = {
     english: {
-      title: "Please Enter Your Details",
-      name: "Name",
-      email: "Email",
-      city: "City",
-      phone: "Phone Number",
-      guests: "Number of Guests",
-      eventDate: "Date of Event",
-      submitButton: "Confirm Details",
-      errorMessage: "Please fill in all the required fields before submitting.",
+      title: 'Please Enter Your Details',
+      name: 'Name',
+      email: 'Email',
+      city: 'City',
+      phone: 'Phone Number',
+      guests: 'Number of Guests',
+      eventDate: 'Date of Event',
+      submitButton: 'Confirm Details',
+      nameError: 'Please fill in the name field.',
+      emailError: 'Please fill in the email field.',
+      cityError: 'Please select a city.',
+      phoneError: 'Please enter a valid 10-digit phone number.',
+      guestsError: 'Please enter a valid number of guests.',
+      eventDateError: 'Please select a date for the event.',
     },
     arabic: {
-      title: "الرجاء إدخال تفاصيلك",
-      name: "الاسم",
-      email: "البريد الإلكتروني",
-      city: "المدينة",
-      phone: "رقم الهاتف",
-      guests: "عدد الضيوف",
-      eventDate: "تاريخ الحدث",
-      submitButton: "تأكيد التفاصيل",
-      errorMessage: "يرجى ملء جميع الحقول المطلوبة قبل الإرسال.",
+      title: 'الرجاء إدخال تفاصيلك',
+      name: 'الاسم',
+      email: 'البريد الإلكتروني',
+      city: 'المدينة',
+      phone: 'رقم الهاتف',
+      guests: 'عدد الضيوف',
+      eventDate: 'تاريخ الحدث',
+      submitButton: 'تأكيد التفاصيل',
+      nameError: 'يرجى ملء حقل الاسم.',
+      emailError: 'يرجى ملء حقل البريد الإلكتروني.',
+      cityError: 'يرجى اختيار مدينة.',
+      phoneError: 'يرجى إدخال رقم هاتف صالح من 10 أرقام.',
+      guestsError: 'يرجى إدخال عدد صحيح من الضيوف.',
+      eventDateError: 'يرجى اختيار تاريخ للحدث.',
     },
   };
 
-  const isFormValid = Object.values(formData).every((field) => field !== '' || field === 0);
-
   return (
     <div className="h-full" id="orderform">
-      <div className="max-w-4xl w-full rounded-lg ">
+      <div className="max-w-4xl w-full rounded-lg">
         <h2 className="text-xl font-semibold mb-6">{translations[language].title}</h2>
         <form onSubmit={handleSubmit}>
           {renderInput(translations[language].name, 'name')}
@@ -141,34 +179,17 @@ const OrderForm = ({ language = "english" }) => {
                 </option>
               ))}
             </select>
+            {errors.city && (
+              <div className="text-red-500 text-sm mt-1">{translations[language].cityError}</div>
+            )}
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">{translations[language].phone}</label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              minLength={10}
-              maxLength={10}
-              placeholder="Phone Number"
-              className="p-2 border border-gray-300 rounded-lg flex-grow"
-              required
-            />
-          </div>
-          {renderInput(translations[language].guests, 'guests', 'number', { min: 10 })}
+          {renderInput(translations[language].phone, 'phone', 'tel', { minLength: 10, maxLength: 10 })}
+          {renderInput(translations[language].guests, 'guests', 'number', { min: 1 })}
           {renderInput(translations[language].eventDate, 'eventDate', 'date')}
-          {/* Error message */}
-          {showError && (
-            <div className="text-red-500 text-sm mb-4">
-              {translations[language].errorMessage}
-            </div>
-          )}
           <div className="flex justify-center">
             <button
               type="submit"
               className="bg-blue-500 text-white p-2 rounded-md w-full hover:bg-green-600"
-              disabled={!isFormValid}
             >
               {translations[language].submitButton}
             </button>
