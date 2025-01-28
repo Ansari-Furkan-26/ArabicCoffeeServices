@@ -105,7 +105,7 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
   const [isClient, setIsClient] = useState(false);
   const [selectedDrinks, setSelectedDrinks] = useState([]);
   const [selectedFoodItems, setSelectedFoodItems] = useState([]);
-  const [customPackage, setCustomPackage] = useState(null); // Add custom package state
+  const [customPackage, setCustomPackage] = useState(null);
   const [showThankYouPopup, setShowThankYouPopup] = useState(false);
 
   useEffect(() => {
@@ -127,8 +127,8 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
       setFormData((prev) => ({
         ...prev,
         ...parsedData,
-        selectedPackage,
-        selectedPackagePrice,
+        selectedPackage: parsedData.selectedPackage || selectedPackage,
+        selectedPackagePrice: parsedData.selectedPackagePrice || selectedPackagePrice,
       }));
     }
 
@@ -200,17 +200,28 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
     const drinksTotal = selectedDrinks.reduce((sum, drink) => sum + drink.price, 0);
     const foodTotal = selectedFoodItems.reduce((sum, food) => sum + food.price, 0);
     const deliveryCharge = DELIVERY_CHARGES[formData.city] || 0;
-    const customPackagePrice = customPackage ? customPackage.totalPrice : 0; // Include custom package price
+    const customPackagePrice = customPackage ? customPackage.totalPrice : 0;
     return (formData.selectedPackagePrice || 0) + drinksTotal + foodTotal + deliveryCharge + customPackagePrice;
+  };
+
+  const isFormValid = () => {
+    return (
+      formData.name.trim() !== "" &&
+      formData.email.trim() !== "" &&
+      formData.city.trim() !== "" &&
+      formData.phone.trim() !== "" &&
+      formData.guests.trim() !== "" &&
+      formData.eventDate.trim() !== ""
+    );
   };
 
   const handleOrderSubmit = () => {
     setShowThankYouPopup(true);
-  
+
     // Pre-calculate data for better performance
     const totalAmount = calculateTotal();
     const deliveryCharge = DELIVERY_CHARGES[formData.city] || 0;
-  
+
     // Generate details for the selected package
     const selectedPackageDetails = formData.selectedPackage
       ? `
@@ -219,7 +230,7 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
       - Package Price: ${formData.selectedPackagePrice || 0} AED
       `
       : "";
-  
+
     // Generate details for the custom package
     const customPackageDetails = customPackage
       ? `
@@ -232,10 +243,10 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
       - Custom Package Total: ${customPackage.totalPrice || 0} AED
       `
       : "";
-  
+
     // Combine package details (if both exist, show both; otherwise, show only the available one)
     const packageDetails = `${selectedPackageDetails}${customPackageDetails}`.trim() || "*Package Details: N/A*";
-  
+
     // Client information
     const clientInfo = `
       *Client Information:*
@@ -246,7 +257,7 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
       - Guests: ${formData.guests || "N/A"}
       - Event Date: ${formData.eventDate || "N/A"}
     `.trim();
-  
+
     // Final message
     const message = `
       Hello, I would like to place an order. Here are the details:
@@ -259,10 +270,13 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
       
       *Total Amount:* ${totalAmount} AED
     `.trim();
-  
+
     // Encode the message to be sent via WhatsApp
     const whatsappLink = `https://wa.me/+971503665518?text=${encodeURIComponent(message)}`;
     window.open(whatsappLink, "_blank");
+
+    // Clear localStorage after the WhatsApp message is sent
+    resetForm();
   };
 
   // Function to reset the form fields
@@ -275,13 +289,18 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
       phone: "",
       guests: "",
       eventDate: "",
+      selectedPackage: null,
+      selectedPackagePrice: null,
     }));
     setSelectedDrinks([]);
     setSelectedFoodItems([]);
-    setCustomPackage(null); // Reset custom package
+    setCustomPackage(null);
+    localStorage.removeItem('formData');
     localStorage.removeItem('selectedDrinks');
     localStorage.removeItem('selectedFoodItems');
     localStorage.removeItem('customPackage');
+    localStorage.removeItem('selectedPackage');
+    localStorage.removeItem('selectedPackagePrice');
   };
 
   return (
@@ -431,8 +450,9 @@ const Cart = ({ onSelectPackage, language, selectedPackage = "Basic Package", se
 
         {/* Place Order Button */}
         <button
-          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-green-600"
+          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-green-600 disabled:bg-gray-400"
           onClick={handleOrderSubmit}
+          disabled={!isFormValid()}
         >
           {t.order}
         </button>
