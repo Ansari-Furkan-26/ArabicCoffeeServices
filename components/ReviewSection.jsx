@@ -133,7 +133,7 @@ const ReviewSection = ({ language }) => {
             ))}
           </div>
 
-          {/* Mobile View: Single Review with Navigation */}
+          {/* Mobile View: Single Review with Navigation
           <div className="lg:hidden">
             <ReviewCard review={reviews[currentIndex]} />
             <div className="flex justify-between mt-4">
@@ -150,7 +150,13 @@ const ReviewSection = ({ language }) => {
                 Next &rarr;
               </button>
             </div>
-          </div>
+          </div> */}
+        {/* Mobile View: Horizontal Scroll */}
+        <div className="lg:hidden overflow-x-auto flex space-x-4 pb-4" style={{ scrollbarWidth: "thin" }}>
+          {reviews.map((review, index) => (
+            <ReviewCard key={index} review={review} />
+          ))}
+        </div>
         </div>
       </div>
 
