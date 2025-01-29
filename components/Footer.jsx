@@ -82,7 +82,7 @@ function Footer({ language = "english" }) {
             <FaInstagram className="text-white text-xl" />
           </a>
           <a
-            href="https://wa.me/+917045992776"
+            href="https://wa.me/+971503665518"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-gray-800 hover:bg-gray-700 rounded-full h-10 w-10 flex items-center justify-center"
