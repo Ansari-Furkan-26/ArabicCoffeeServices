@@ -12,6 +12,7 @@ const translations = {
     female: "Female",
     total: "Total Price",
     addToCart: "Add to Cart",
+    popup: "Package Added",
     errorNoItems: "Kindly select at least one item from the above options.",
     errorNoServant: "Kindly select at least one male or female servant.",
     hotDrinks: [
@@ -71,6 +72,7 @@ const translations = {
     female: "الخادمة الأنثى",
     total: "السعر الإجمالي",
     addToCart: "أضف إلى السلة",
+    popup: "تمت إضافة الحزمة",
     errorNoItems: "يرجى اختيار عنصر واحد على الأقل من الخيارات أعلاه.",
     errorNoServant: "يرجى اختيار خادم واحد على الأقل ذكر أو أنثى.",
     hotDrinks: [
@@ -149,6 +151,7 @@ const CustomePackage = ({ language, onAddToCart }) => {
   const [femaleServants, setFemaleServants] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [error, setError] = useState("");
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   useEffect(() => {
     const hotDrinkPrice = selectedHotDrinks.length * 200;
@@ -205,13 +208,23 @@ const CustomePackage = ({ language, onAddToCart }) => {
       totalPrice,
     };
 
-    console.log("Cart Data:", cartData);
+    console.log("Cart Data:", cartData);    
+    setIsPopupVisible(true);
     localStorage.setItem("customPackage", JSON.stringify(cartData));
     onAddToCart(cartData); // Pass custom package data to parent
 
       // Refresh the page
   window.location.reload();
   };
+   useEffect(() => {
+      if (isPopupVisible) {
+        const timer = setTimeout(() => {
+          setIsPopupVisible(false);
+        }, 2000);
+  
+        return () => clearTimeout(timer);
+      }
+    }, [isPopupVisible]);
 
   return (
     <div className="mb-4">
@@ -302,42 +315,41 @@ const CustomePackage = ({ language, onAddToCart }) => {
           </div>
 
          {/* Servant Options */}
-<div className="my-4">
-  <h3 className="text-lg font-semibold mb-2">{t.Servant}</h3>
-  <div className="flex md:flex-nowrap flex-wrap gap-4">
-    <div className="flex items-center">
-      <label>{t.male}</label>
-      <select
-        value={maleServants}
-        onChange={(e) => setMaleServants(Number(e.target.value))}
-        className="ml-2 p-2 border rounded w-20"
-      >
-        {/* Generate options from 0 to 10 */}
-        {[...Array(11).keys()].map((num) => (
-          <option key={num} value={num}>
-            {num}
-          </option>
-        ))}
-      </select>
-    </div>
-    <div className="flex items-center">
-      <label>{t.female}</label>
-      <select
-        value={femaleServants}
-        onChange={(e) => setFemaleServants(Number(e.target.value))}
-        className="ml-2 p-2 border rounded w-20"
-      >
-        {/* Generate options from 0 to 10 */}
-        {[...Array(11).keys()].map((num) => (
-          <option key={num} value={num}>
-            {num}
-          </option>
-        ))}
-      </select>
-    </div>
-  </div>
-</div>
-
+        <div className="my-4">
+          <h3 className="text-lg font-semibold mb-2">{t.Servant}</h3>
+          <div className="flex md:flex-nowrap flex-wrap gap-4">
+            <div className="flex items-center">
+              <label>{t.male}</label>
+              <select
+                value={maleServants}
+                onChange={(e) => setMaleServants(Number(e.target.value))}
+                className="ml-2 p-2 border rounded w-20"
+              >
+                {/* Generate options from 0 to 10 */}
+                {[...Array(11).keys()].map((num) => (
+                  <option key={num} value={num}>
+                    {num}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex items-center">
+              <label>{t.female}</label>
+              <select
+                value={femaleServants}
+                onChange={(e) => setFemaleServants(Number(e.target.value))}
+                className="ml-2 p-2 border rounded w-20"
+              >
+                {/* Generate options from 0 to 10 */}
+                {[...Array(11).keys()].map((num) => (
+                  <option key={num} value={num}>
+                    {num}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
 
           {/* Total Price */}
           <div className="my-4">
@@ -357,6 +369,13 @@ const CustomePackage = ({ language, onAddToCart }) => {
             {t.addToCart}
           </button>
         </div>
+        {isPopupVisible && (
+        <div className="fixed inset-x-0 top-5 right-2 bg-opacity-80 flex z-50">
+          <div className="bg-gray-100 text-gray-700 mx-3 rounded-lg border-b-4 border-green-500 p-4 w-full max-w-lg flex items-center justify-between shadow-lg">
+            <h2 className="text-xl font-semibold">🎉 {t.popup}</h2>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   );
