@@ -8,7 +8,6 @@ const translations = {
     HotType: "Hot Drinks",
     ColdType: "Cold Drinks",
     Additional: "Additional",
-    popup: "Package Added",
     hotDrinks: [
       "Arabic coffee or Turkish coffee",
       "Karak Tea",
@@ -68,7 +67,6 @@ const translations = {
     HotType: "المشروبات الساخنة",
     ColdType: "المشروبات الباردة",
     Additional: "إضافي",
-    popup: "تمت إضافة الحزمة",
     hotDrinks: [
       "القهوة العربية او القهوة التركية",
       "شاي كرك",
@@ -180,7 +178,7 @@ const PackShowcase2 = ({ onSelectPackage, language }) => {
     if (isPopupVisible) {
       const timer = setTimeout(() => {
         setIsPopupVisible(false);
-      }, 2000);
+      }, 5000);
 
       return () => clearTimeout(timer);
     }
@@ -246,7 +244,6 @@ const PackShowcase2 = ({ onSelectPackage, language }) => {
                     className="bg-blue-500 text-white rounded px-8 py-2 hover:bg-green-500"
                     onClick={() => {
                       onSelectPackage(product.title, product.price);
-                      handleSelectPackage();
                     }}
                   >
                     {t.select}
@@ -257,13 +254,20 @@ const PackShowcase2 = ({ onSelectPackage, language }) => {
             );
           })}
           
+      {/* <CustomePackage language={language}/> */}
         </div>
       </div>
 
       {isPopupVisible && (
-        <div className="fixed inset-x-0 top-5 right-2 bg-opacity-80 flex z-50">
-          <div className="bg-gray-100 text-gray-700 mx-3 rounded-lg border-b-4 border-green-500 p-4 w-full max-w-lg flex items-center justify-between shadow-lg">
-            <h2 className="text-xl font-semibold">🎉 {t.popup}</h2>
+        <div className="fixed inset-x-0 bottom-10 bg-opacity-80 flex justify-center items-center z-50">
+          <div className="bg-gray-800 text-white rounded-t-lg p-4 w-full max-w-lg flex items-center justify-between shadow-lg">
+            <h2 className="text-xl font-semibold">🎉 Package Added</h2>
+            <a
+              href="#cart"
+              className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition-all duration-300"
+            >
+              View Cart
+            </a>
           </div>
         </div>
       )}
