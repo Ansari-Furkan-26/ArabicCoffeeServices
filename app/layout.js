@@ -53,7 +53,7 @@ export default function RootLayout({ children }) {
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
 
-                gtag('config', 'YOUR_MEASUREMENT_ID'); // Replace with your GA4 ID
+                gtag('config', 'G-YWDFCK5NPF'); // Replace with your GA4 ID
               `,
             }}
           ></script>

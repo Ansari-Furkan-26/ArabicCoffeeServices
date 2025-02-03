@@ -49,6 +49,17 @@ export default function HomePage() {
       description:
         "Discover premium catering, hospitality and beverage services in the UAE. We specialize in luxurious drinks and unforgettable experiences for weddings, corporate events, and private gatherings.",
       url: "https://www.ruknaldyafa.ae/",
+      keywords: [
+        "catering services uae",
+        "hospitality services uae",
+        "beverage catering dubai",
+        "wedding catering abu dhabi",
+        "corporate event catering",
+        "luxury catering uae",
+        "private party catering",
+        "arabic hospitality uae",
+        "best catering company uae",
+      ], 
       openGraph: {
         title: "Rukn Al Dyafa - Premium Catering Services",
         description:
@@ -70,6 +81,17 @@ export default function HomePage() {
       description:
         "اكتشف خدمات تقديم الطعام الفاخرة والضيافة والمشروبات في الإمارات. نحن متخصصون في تقديم المشروبات الفاخرة والتجارب التي لا تُنسى لحفلات الزفاف، الفعاليات الخاصة، وحفلات الشركات.",
       url: "https://www.ruknaldyafa.ae/ar/",
+      keywords: [
+        "خدمات تقديم الطعام في الإمارات",
+        "خدمات الضيافة في الإمارات",
+        "تقديم الطعام في دبي",
+        "تقديم الطعام في أبو ظبي",
+        "تقديم الطعام لحفلات الشركات",
+        "تقديم الطعام الفاخر في الإمارات",
+        "تقديم الطعام للحفلات الخاصة",
+        "الضيافة العربية في الإمارات",
+        "أفضل شركة تقديم طعام في الإمارات",
+      ],
       openGraph: {
         title: "ركن الضيافة - خدمات تقديم الطعام الفاخرة",
         description:
