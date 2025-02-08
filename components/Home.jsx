@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FaInstagram, FaWhatsapp, FaSnapchat } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp, FaSnapchat, FaFacebook } from "react-icons/fa";
 
 export default function HomePage({ language, toggleLanguage }) {
   // Manage language state
@@ -124,6 +124,8 @@ export default function HomePage({ language, toggleLanguage }) {
               </a>
               <a href="https://www.snapchat.com/add/ruknaldyafa?sender_web_id=f7b1dbb5-c3c0-48c6-a15b-058b0e4429dc&device_type=desktop&is_copy_url=true" target="_blank" rel="noreferrer" className="w-10 h-10 flex justify-center items-center bg-gray-800 rounded-full hover:bg-gray-600 transition">
                 <FaSnapchat />
+              </a><a href="https://www.facebook.com/people/Rukn-Al-Dyafa-Hospitality/61570904173618/" target="_blank" rel="noreferrer" className="w-10 h-10 flex justify-center items-center bg-gray-800 rounded-full hover:bg-gray-600 transition">
+                <FaFacebook />
               </a>
             </motion.div>
 

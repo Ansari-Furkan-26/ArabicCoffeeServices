@@ -7,7 +7,7 @@ export const metadata = {
     default:"Rukn Al Dyafa | Arabic Coffee Service | ركن الضيافة ",
     template: "%s - Rukn Al Dyafa"
   },
-  description: "ركن الضيافة - Discover premium Arabic coffee service in the UAE. We specialize in luxurious beverage catering for weddings, corporate events, and private gatherings. خدمة القهوة العربية.",
+  description: "ركن الضيافة - Experience premium Arabic coffee service in the UAE, specializing in luxurious beverage catering for weddings, corporate events, and private gatherings. خدمة القهوة العربية.",
   openGraph: {
     title: "Rukn Al Dyafa | Hospitality Services",
     description: "Experience the finest Arabic coffee and exceptional hospitality services for your special events in the UAE. Tailored beverage catering for weddings, corporate events, and private gatherings.",
